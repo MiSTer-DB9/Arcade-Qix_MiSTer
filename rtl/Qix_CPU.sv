@@ -246,10 +246,21 @@ wire [7:0] pia0_dout;
 wire       pia0_irqa, pia0_irqb;
 wire [7:0] pia0_pb_o, pia0_pb_oe;
 
-// PIA0 PB input: for MCU games the MCU's PA output drives this; for non-MCU
-// games the raw coin_input switch bus drives it directly.
+// MCU games: latched MCU PA output feeds PIA0 PB input, mirroring MAME's
+// coin_r which returns m_68705_porta_out (captured by mcu_porta_w callback).
+// Initialized to 0xFF (all inactive, active-low) so the 6809 sees no spurious
+// coins/credits before the MCU has run its first IRQ handler.
 wire [7:0] mcu_pa_out;
-wire [7:0] pia0_pb_i = is_mcu_game ? mcu_pa_out : coin_input;
+reg  [7:0] mcu_porta_cache = 8'hFF;
+
+always @(posedge clk_20m) begin
+    if (reset)
+        mcu_porta_cache <= 8'hFF;
+    else if (is_mcu_game && mcu_pa_wr_stb)
+        mcu_porta_cache <= mcu_pa_latch;
+end
+
+wire [7:0] pia0_pb_i = is_mcu_game ? mcu_porta_cache : coin_input;
 
 pia6821 pia0 (
     .clk      (clk_20m),
@@ -432,31 +443,15 @@ mc68705p3 mcu (
 // CPU data bus read mux — default $FF for open-bus / unimplemented reads
 // ---------------------------------------------------------------------------
 
-// MCU games: return cached MCU PA latch to 6809 reads of PIA0 port B.
-// Mirrors MAME's mcu_porta_w callback: cache pa_latch on every STA PA
-// regardless of DDRA state (sd101 pulses DDRA high, yy101 pulses it low).
-
-reg [7:0] mcu_porta_cache = 8'h00;
-
-always @(posedge clk_20m) begin
-    if (reset)
-        mcu_porta_cache <= 8'h00;
-    else if (is_mcu_game && mcu_pa_wr_stb)
-        mcu_porta_cache <= mcu_pa_latch;
-end
-
-wire pia0_pb_read = pia0_cs & cpu_RnW & (cpu_A[1:0] == 2'b10);
-
 assign cpu_Din =
-    shared_cs                        ? shared_dout     :
-    local_cs                         ? local_ram_dout  :
-    acia_cs                          ? 8'h02           :
-    sndpia_cs                        ? sndpia_dout     :
-    (pia0_pb_read & is_mcu_game)     ? mcu_porta_cache :
-    pia0_cs                          ? pia0_dout       :
-    pia1_cs                          ? pia1_dout       :
-    pia2_cs                          ? pia2_dout       :
-    rom_cs                           ? rom_dout        :
+    shared_cs  ? shared_dout     :
+    local_cs   ? local_ram_dout  :
+    acia_cs    ? 8'h02           :
+    sndpia_cs  ? sndpia_dout     :
+    pia0_cs    ? pia0_dout       :
+    pia1_cs    ? pia1_dout       :
+    pia2_cs    ? pia2_dout       :
+    rom_cs     ? rom_dout        :
     8'hFF;
 
 endmodule
