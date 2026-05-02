@@ -58,7 +58,8 @@ module Qix_Video (
     input         hs_write,
 
     input         pause,
-    input         flip
+    input         flip,
+    input  [7:0]  game_id
 );
 
 // ---------------------------------------------------------------------------
@@ -146,6 +147,26 @@ end
 
 assign data_firq     = firq_assert_pulse;
 assign video_firq_ack = firq_ack_pulse;
+
+// ---------------------------------------------------------------------------
+// Zoo Keeper ROM-bank latch (per qix_m.cpp zookeep_state::bankswitch_w)
+//
+//   $8800 (even mirror): palette bank only — already handled in qix_palette
+//                        because palbank_cs covers the full $8800-$8BFF range.
+//   $8801 (odd  mirror): videobank ← data[2], palette bank ← data[1:0]
+//
+// We only need a new latch for the video ROM bank. Gated by is_zookeep so
+// non-Zoo Keeper games are unaffected.
+// ---------------------------------------------------------------------------
+wire is_zookeep = (game_id == 8'h04);
+
+reg vid_bank;
+always @(posedge clk_20m) begin
+    if (reset)
+        vid_bank <= 1'b0;
+    else if (is_zookeep & palbank_cs & cpu_A[0] & cpu_wr)
+        vid_bank <= cpu_Dout[2];
+end
 
 // ---------------------------------------------------------------------------
 // VRAM address latch registers (written at $9402/$9403)
@@ -302,17 +323,49 @@ dpram_dc #(.widthad_a(10)) nvram_inst (
 assign hs_data_out = nvram_hs_dout;
 
 // ---------------------------------------------------------------------------
-// Video ROM — 16KB ($C000-$FFFF) in 16KB BRAM
+// Video ROM — sized for the largest variant on the platform.
 //
-// Loaded at ioctl_addr $04000-$07FFF (gated by Qix.sv).
-// CPU read address: cpu_A[13:0]  ($C000→0 .. $FFFF→$3FFF)
-// ioctl write address: ioctl_addr[13:0] (bits [13:0] of $04000-$07FFF = 0-$3FFF)
+//   Qix / non-banked: 24KB at $A000-$FFFF      (loaded ioctl $06000-$0BFFF)
+//   Zoo Keeper:       32KB total — 8KB bank0 + 16KB fixed + 8KB bank1
+//                                                (loaded ioctl $08000-$0FFFF)
+//
+// BRAM layout for Zoo Keeper:
+//   index $0000-$1FFF : bank 0 of $A000-$BFFF  (8KB)
+//   index $2000-$5FFF : fixed  $C000-$FFFF     (16KB)
+//   index $6000-$7FFF : bank 1 of $A000-$BFFF  (8KB)
+//
+// CPU read-address mux:
+//   Non-Zook:           cpu_A[14:0] - $2000
+//   Zook $A000-$BFFF:   bank0 → $0000 + cpu_A[12:0]
+//                       bank1 → $6000 + cpu_A[12:0]
+//   Zook $C000-$FFFF:   $2000 + cpu_A[13:0]
 // ---------------------------------------------------------------------------
-reg [7:0] vid_rom [0:24575];                         // 24KB
+reg [7:0] vid_rom [0:32767];                         // 32KB
 reg [7:0] rom_dout;
 
-wire [14:0] rom_cpu_addr   = cpu_A[14:0] - 15'h2000; // $A000→0
-wire [14:0] rom_ioctl_addr = ioctl_addr[14:0] - 15'h6000;
+// Zoo Keeper BRAM-index decode for $A000-$FFFF reads:
+//   $A000-$BFFF, bank 0  → BRAM $0000-$1FFF  (idx = {2'b00, cpu_A[12:0]})
+//   $A000-$BFFF, bank 1  → BRAM $6000-$7FFF  (idx = {2'b11, cpu_A[12:0]})
+//   $C000-$FFFF, fixed   → BRAM $2000-$5FFF  (idx = {1'b0, cpu_A[14], cpu_A[13:0]} 
+//                                              i.e. bit[14]=0, bit[13]=cpu_A[14] which =1, bits=cpu_A[13:0])
+//                                              Simpler: just $2000 + cpu_A[13:0].
+reg [14:0] zook_rom_addr;
+always @* begin
+    if (cpu_A[14] == 1'b1)                        // $C000-$FFFF (fixed)
+        zook_rom_addr = 15'h2000 + {1'b0, cpu_A[13:0]};
+    else if (vid_bank == 1'b0)                    // $A000-$BFFF bank 0
+        zook_rom_addr = {2'b00, cpu_A[12:0]};
+    else                                          // $A000-$BFFF bank 1
+        zook_rom_addr = {2'b11, cpu_A[12:0]};
+end
+
+wire [14:0] rom_cpu_addr = is_zookeep ? zook_rom_addr
+                                      : (cpu_A[14:0] - 15'h2000);
+
+// Non-Zook range starts at ioctl $06000 — subtract to base BRAM at 0.
+// Zoo Keeper range starts at ioctl $08000 — low 15 bits are already 0-based.
+wire [14:0] rom_ioctl_addr = is_zookeep ? ioctl_addr[14:0]
+                                        : (ioctl_addr[14:0] - 15'h6000);
 
 always @(posedge clk_20m) begin
     if (ioctl_wr)

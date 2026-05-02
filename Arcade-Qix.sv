@@ -459,12 +459,12 @@ wire hs, vs;
 wire [7:0] r, g, b;  // 8-bit RGB direct from Qix core
 wire ce_pix;
 
-// ROT270 (CCW): Qix, ComplexX, SpaceDungeon, ElecYoYo, ZooKeeper, Slither
-// ROT0 (none):  Kram
-wire kram       = (game_id == 8'h03);
+// ROT270 (CCW): Qix, ComplexX, SpaceDungeon, ElecYoYo, Slither
+// ROT0 (none):  Kram, Zoo Keeper
+wire horizontal = (game_id == 8'h03) | (game_id == 8'h04);  // Kram or Zoo Keeper
 wire rotate_ccw = 1;
-wire no_rotate  = (status[12] ^ kram) | direct_video;
-wire flip 	    = status[11] | ~no_rotate;
+wire no_rotate  = (status[12] ^ horizontal) | direct_video;
+wire flip       = status[11] | ~no_rotate;
 screen_rotate screen_rotate(.*);
 
 arcade_video #(256,24) arcade_video

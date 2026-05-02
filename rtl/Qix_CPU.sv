@@ -79,18 +79,28 @@ wire cpu_wr     = cpu_E_fall & ~cpu_RnW;
 
 // ---------------------------------------------------------------------------
 // Address decoder
+//
+// Zoo Keeper relocates all data-CPU I/O from $8000-$9FFF to $0000-$1FFF and
+// extends ROM from $A000-$FFFF (24KB) to $8000-$FFFF (32KB). Per qix.cpp:
+//   "Zookeeper is almost the same, just the top bit of the address is inverted
+//    most of the time to make space for more ROM."
+// XOR cpu_A[15] with is_zookeep so the existing I/O decoders match unchanged.
 // ---------------------------------------------------------------------------
-wire shared_cs      = (cpu_A[15:10] == 6'b10_0000);   // $8000-$83FF
-wire local_cs       = (cpu_A[15:10] == 6'b10_0001);   // $8400-$87FF
-wire acia_cs        = (cpu_A[15:10] == 6'b10_0010);   // $8800-$8BFF (open-bus)
-wire firq_range     = (cpu_A[15:10] == 6'b10_0011);   // $8C00-$8FFF
-wire firq_assert_cs = firq_range & ~cpu_A[0];         // even addr: assert video FIRQ
-wire firq_ack_cs    = firq_range &  cpu_A[0];         // odd  addr: ack data FIRQ
-wire sndpia_cs      = (cpu_A[15:10] == 6'b10_0100);   // $9000-$93FF
-wire pia0_cs        = (cpu_A[15:10] == 6'b10_0101);   // $9400-$97FF
-wire pia1_cs        = (cpu_A[15:10] == 6'b10_0110);   // $9800-$9BFF
-wire pia2_cs        = (cpu_A[15:10] == 6'b10_0111);   // $9C00-$9FFF
-wire rom_cs         = (cpu_A >= 16'hA000);            // $A000-$FFFF (24KB)
+wire is_zookeep = (game_id == 8'h04);
+wire [15:0] dec_A = {cpu_A[15] ^ is_zookeep, cpu_A[14:0]};
+
+wire shared_cs      = (dec_A[15:10] == 6'b10_0000);     // Qix $8000-$83FF / Zook $0000-$03FF
+wire local_cs       = (dec_A[15:10] == 6'b10_0001);     // Qix $8400-$87FF / Zook $0400-$07FF
+wire acia_cs        = (dec_A[15:10] == 6'b10_0010);     // Qix $8800-$8BFF / Zook $0800-$0BFF
+wire firq_range     = (dec_A[15:10] == 6'b10_0011);     // Qix $8C00-$8FFF / Zook $0C00-$0FFF
+wire firq_assert_cs = firq_range & ~cpu_A[0];           // even addr: assert video FIRQ
+wire firq_ack_cs    = firq_range &  cpu_A[0];           // odd  addr: ack data FIRQ
+wire sndpia_cs      = (dec_A[15:10] == 6'b10_0100);     // Qix $9000-$93FF / Zook $1000-$13FF
+wire pia0_cs        = (dec_A[15:10] == 6'b10_0101);     // Qix $9400-$97FF / Zook $1400-$17FF
+wire pia1_cs        = (dec_A[15:10] == 6'b10_0110);     // Qix $9800-$9BFF / Zook $1800-$1BFF
+wire pia2_cs        = (dec_A[15:10] == 6'b10_0111);     // Qix $9C00-$9FFF / Zook $1C00-$1FFF
+wire rom_cs         = is_zookeep ? cpu_A[15]            // Zook $8000-$FFFF (32KB)
+                                 : (cpu_A >= 16'hA000); // Qix  $A000-$FFFF (24KB)
 
 // PIA chip-select: single-cycle pulse, one cycle AFTER E-fall.
 //
@@ -333,16 +343,22 @@ pia6821 pia2 (
 );
 
 // ---------------------------------------------------------------------------
-// Data CPU ROM — 16KB ($A000-$FFFF) in 24KB BRAM
+// Data CPU ROM — sized for the largest variant on the platform.
 //
-// Loaded at ioctl_addr $00000-$05FFF (gated by Qix.sv).
-// CPU read address: cpu_A[13:0]  ($A000→0 .. $FFFF→$5FFF)
-// ioctl write address: ioctl_addr[13:0] (0-based, base $00000)
+//   Qix / Kram / SDungeon / etc:  24KB at $A000-$FFFF (loaded at ioctl 0..$5FFF)
+//   Zoo Keeper:                   32KB at $8000-$FFFF (loaded at ioctl 0..$7FFF)
+//
+// Array sized to 32KB unconditionally. Non-Zook games leave the low 8KB
+// unused (rom_cs never asserts there).
 // ---------------------------------------------------------------------------
-reg [7:0] data_rom [0:24575];                        // 24KB
+reg [7:0] data_rom [0:32767];                        // 32KB
 reg [7:0] rom_dout;
 
-wire [14:0] rom_cpu_addr   = cpu_A[14:0] - 15'h2000; // $A000→0, $FFFF→$5FFF
+// CPU read addr:
+//   Qix:  $A000→0,    $FFFF→$5FFF  (cpu_A - $2000, low 15 bits)
+//   Zook: $8000→0,    $FFFF→$7FFF  (cpu_A[14:0])
+wire [14:0] rom_cpu_addr   = is_zookeep ? cpu_A[14:0]
+                                        : (cpu_A[14:0] - 15'h2000);
 wire [14:0] rom_ioctl_addr = ioctl_addr[14:0];
 
 always @(posedge clk_20m) begin

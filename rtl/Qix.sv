@@ -129,15 +129,31 @@ dpram_dc #(.widthad_a(10)) shared_ram_inst (
 // ---------------------------------------------------------------------------
 // ROM ioctl address-range dispatch (concatenated ROM, all ioctl_index == 0)
 //
-// MRA layout (Qix set 2 example, all sets follow same slot structure):
-//   $00000-$05FFF : data CPU  (24KB, 6× $1000 slots covering $A000-$FFFF)
-//   $06000-$0BFFF : video CPU (24KB, 6× $1000 slots covering $A000-$FFFF)
-//   $0C000-$0EFFF : audio CPU (12KB, covers $D000-$FFFF platform max)
-//                  Qix: qq27.u27 is 2KB at $F800, padded to land at $0E800
+// Layout differs by game because Zoo Keeper has larger data + video ROMs:
+//
+//   Non-Zoo Keeper (game_id != 4):
+//     $00000-$05FFF : data CPU  (24KB, 6× $1000 slots covering $A000-$FFFF)
+//     $06000-$0BFFF : video CPU (24KB, 6× $1000 slots covering $A000-$FFFF)
+//     $0C000-$0EFFF : audio CPU (12KB, covers $D000-$FFFF platform max)
+//
+//   Zoo Keeper (game_id == 4):
+//     $00000-$07FFF : data CPU  (32KB at CPU $8000-$FFFF)
+//     $08000-$0FFFF : video CPU (32KB: 8KB bank0 + 16KB fixed + 8KB bank1)
+//     $10000-$12FFF : audio CPU (12KB at CPU $D000-$FFFF, same as Qix)
 // ---------------------------------------------------------------------------
-wire cpu_ioctl_wr = ioctl_wr & (ioctl_index == 8'd0) & (ioctl_addr < 25'h06000);                             // 24KB
-wire vid_ioctl_wr = ioctl_wr & (ioctl_index == 8'd0) & (ioctl_addr >= 25'h06000) & (ioctl_addr < 25'h0C000); // 24KB
-wire snd_ioctl_wr = ioctl_wr & (ioctl_index == 8'd0) & (ioctl_addr >= 25'h0C000) & (ioctl_addr < 25'h0F000); // 12KB ($D000-$FFFF)
+wire is_zookeep_top = (game_id == 8'h04);
+
+wire cpu_ioctl_wr = ioctl_wr & (ioctl_index == 8'd0) & (
+    is_zookeep_top ?  (ioctl_addr < 25'h08000)
+                   :  (ioctl_addr < 25'h06000));
+
+wire vid_ioctl_wr = ioctl_wr & (ioctl_index == 8'd0) & (
+    is_zookeep_top ?  (ioctl_addr >= 25'h08000 && ioctl_addr < 25'h10000)
+                   :  (ioctl_addr >= 25'h06000 && ioctl_addr < 25'h0C000));
+
+wire snd_ioctl_wr = ioctl_wr & (ioctl_index == 8'd0) & (
+    is_zookeep_top ?  (ioctl_addr >= 25'h10000 && ioctl_addr < 25'h13000)
+                   :  (ioctl_addr >= 25'h0C000 && ioctl_addr < 25'h0F000));
 
 // MCU EPROM (MC68705P3, 2KB) loaded via ioctl_index == 2
 wire        mcu_ioctl_wr   = ioctl_wr & (ioctl_index == 8'd2);
@@ -472,7 +488,8 @@ Qix_Video video_board (
 
     .pause           (pause),
 //    .pause           (pause | cpu_sh_cs),
-    .flip            (flip)
+    .flip            (flip),
+    .game_id         (game_id)    
 );
 
 // ---------------------------------------------------------------------------
