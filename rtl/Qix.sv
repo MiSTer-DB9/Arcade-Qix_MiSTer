@@ -442,14 +442,15 @@ Qix_CPU cpu_board (
 // Video CPU reset is staggered ~2ms after data CPU to fix shared RAM race.
 // EYY (and potentially others) hang because the video CPU reads $8013
 // before the data CPU has initialised it. MAME fixes this with interleave=20.
-// At 20MHz, 40000 cycles ≈ 2ms gives the data CPU a head start.
-// ---------------------------------------------------------------------------
-reg [15:0] vid_reset_cnt = 16'd0;
+// At 20MHz, 2000 cycles ≈ 0.1ms gives the data CPU time to clear $03F3
+// before the video CPU boots and asserts its init FIRQ. The window must be
+// LESS than ~10000 cycles (when the data CPU sets $03F3=$80 for game-running).
+reg [16:0] vid_reset_cnt = 17'd0;
 always @(posedge clk_20m) begin
-    if (reset) vid_reset_cnt <= 16'd0;
-    else if (vid_reset_cnt != 16'hFFFF) vid_reset_cnt <= vid_reset_cnt + 16'd1;
+    if (reset) vid_reset_cnt <= 17'd0;
+    else if (vid_reset_cnt != 17'h1FFFF) vid_reset_cnt <= vid_reset_cnt + 17'd1;
 end
-wire video_reset = reset | (vid_reset_cnt < 16'd40000);
+wire video_reset = reset | (vid_reset_cnt < 17'd2000);
 
 Qix_Video video_board (
     .clk_20m         (clk_20m),

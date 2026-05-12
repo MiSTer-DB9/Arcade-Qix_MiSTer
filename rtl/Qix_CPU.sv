@@ -27,7 +27,7 @@ module Qix_CPU (
     output        shared_cs_o,
 
     // FIRQ cross-signals
-    output        video_firq,     // assert FIRQ on video CPU (active-high pulse)
+    output        video_firq,     // assert a on video CPU (active-high pulse)
     output        data_firq_ack,
     input         data_firq_n,    // FIRQ input from video CPU (active-low)
 
@@ -262,6 +262,18 @@ end
 
 wire [7:0] pia0_pb_i = is_mcu_game ? mcu_porta_cache : coin_input;
 
+// MCU PA input latch: mirrors MAME's coin_w → m_mcu->pa_w(data).
+// Captures every 6809 write to PIA0 PB regardless of DDRB state.
+// pia0_pb_o goes to 0 for input-configured bits (DDRB=0), so we cannot
+// use it directly — we latch cpu_Dout at the moment of the write instead.
+reg [7:0] mcu_pa_cmd = 8'hFF;
+always @(posedge clk_20m) begin
+    if (reset)
+        mcu_pa_cmd <= 8'hFF;
+    else if (is_mcu_game && pia0_en && ~cpu_RnW && (cpu_A[1:0] == 2'b10))
+        mcu_pa_cmd <= cpu_Dout;
+end
+
 pia6821 pia0 (
     .clk      (clk_20m),
     .rst      (reset),
@@ -412,9 +424,15 @@ always @(posedge clk_20m) begin
 end
 
 // MCU port inputs derived from coin_input and PIA2 coinctrl.
+// PIA2 PB pin values as seen by the MCU. For bits configured as input
+// (DDR=0, oe=0), the pin floats high through pull-ups. For output bits,
+// the pin reflects the latch. pia2_pb_o reads 0 for input bits in this
+// PIA model, so we must explicitly OR-in the pull-up state.
+wire [7:0] pia2_pb_pin = pia2_pb_o | ~pia2_pb_oe;
+
 wire [7:0] mcu_pb_in = {3'b000, coin_input[7], coin_input[3:0]};
-wire [3:0] mcu_pc_in = {pia2_pb_o[3], coin_input[6:4]};
-wire       mcu_irq_n = ~pia2_pb_o[2];
+wire [3:0] mcu_pc_in = {pia2_pb_pin[3], coin_input[6:4]};
+wire       mcu_irq_n = ~pia2_pb_pin[2];
 
 wire [7:0] mcu_pa_latch;
 wire       mcu_pa_wr_stb;
@@ -424,7 +442,7 @@ mc68705p3 mcu (
     .ce_4m       (mcu_ce_4m),
     .reset       (reset),
     .irq_n       (mcu_irq_n),
-    .pa_in       (pia0_pb_o),
+    .pa_in       (mcu_pa_cmd),
     .pa_out      (mcu_pa_out),
     .pa_latch_out(mcu_pa_latch),
     .pa_wr_stb   (mcu_pa_wr_stb),
