@@ -59,8 +59,13 @@ module Qix_CPU (
     input         mcu_rom_wr,
 
     input         pause,
-    input  [7:0]  game_id
+    input  [7:0]  game_id,
+
+    // DIAGNOSTIC: data CPU address bus, for audio-PC instrumentation
+    output [15:0] dbg_cpu_addr
 );
+
+assign dbg_cpu_addr = cpu_A;
 
 // ---------------------------------------------------------------------------
 // 6809E bus signals (declared early; driven by mc6809e instance below)

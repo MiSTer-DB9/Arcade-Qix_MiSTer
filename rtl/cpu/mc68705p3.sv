@@ -479,9 +479,9 @@ always @(posedge clk) begin
                     end
                     // $6x RMW indexed + 1 byte: EA = operand1 + X
                     8'b0110_????: begin
-                        ea            <= {3'd0, mem_q + X};
-                        mem_raddr     <= {3'd0, mem_q + X};
-                        latched_raddr <= {3'd0, mem_q + X};
+                        ea            <= {3'd0, mem_q} + {3'd0, X};
+                        mem_raddr     <= {3'd0, mem_q} + {3'd0, X};
+                        latched_raddr <= {3'd0, mem_q} + {3'd0, X};
                         state         <= S_MRd;
                     end
                     // $Ax immediate: data byte = operand1 (no memread)
@@ -505,9 +505,9 @@ always @(posedge clk) begin
                     end
                     // $Ex IX1
                     8'b1110_????: begin
-                        ea            <= {3'd0, mem_q + X};
-                        mem_raddr     <= {3'd0, mem_q + X};
-                        latched_raddr <= {3'd0, mem_q + X};
+                        ea            <= {3'd0, mem_q} + {3'd0, X};
+                        mem_raddr     <= {3'd0, mem_q} + {3'd0, X};
+                        latched_raddr <= {3'd0, mem_q} + {3'd0, X};
                         state         <= S_MRd;
                     end
                     default: state <= S_EXEC;
