@@ -11,7 +11,7 @@
     <region>World</region>
     <category>Shooter</category>
 
-    <buttons names="-(unused),-(unused),Coin,Start 1P,Jump,Pause,Test,Start 2P" default="A,B,Select,Start,R,L,X,Y"/>
+    <buttons names="Not Used,Not Used,Test Advance,Not Used,Coin,Start 1P,Start 2P,Pause" default="A,B,X,Y,Select,Start,R,L"/>
 
     <!--
         maincpu: $A000-$FFFF (6x 4KB = 24KB, fills all 6 slots)

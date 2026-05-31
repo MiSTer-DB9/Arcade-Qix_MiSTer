@@ -11,7 +11,7 @@
     <region>World</region>
     <category>Maze</category>
 
-    <buttons names="Draw Fast,Draw Slow,Coin,Start 1P,Start 2P,Pause,Test,-(unused)" default="A,B,Select,Start,R,L,X,Y"/>
+    <buttons names="Draw Fast,Draw Slow,Test Advance,Not Used,Coin,Start 1P,Start 2P,Pause" default="A,B,X,Y,Select,Start,R,L"/>
 
     <rom index="0" zip="qix.zip|qixa.zip" md5="none">
         <!-- Data CPU: 8x 2KB at $C000-$FFFF -->

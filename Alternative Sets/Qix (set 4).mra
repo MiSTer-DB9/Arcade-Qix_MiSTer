@@ -11,7 +11,7 @@
     <region>World</region>
     <category>Maze</category>
 
-    <buttons names="Draw Fast,Draw Slow,Coin,Start 1P,Start 2P,Pause,Test,-(unused)" default="A,B,Select,Start,R,L,X,Y"/>
+    <buttons names="Draw Fast,Draw Slow,Test Advance,Not Used,Coin,Start 1P,Start 2P,Pause" default="A,B,X,Y,Select,Start,R,L"/>
 
     <!--
         Note: qixo maincpu has a gap at $D800-$DFFF (no ROM).

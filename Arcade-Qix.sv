@@ -235,8 +235,8 @@ localparam CONF_STR = {
 	"P2O7A,V Center,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,-12;",
 	"-;",	
 	"R0,Reset;",
-	"J1,Button 1,Button 2,Coin,Start 1P,Start 2P,Pause,Test Advance,Start 2P(alt);",
-	"jn,A,B,Select,Start,R,L,X,Y;",
+	"J1,Button 1,Button 2,Test Advance,Start 2P(alt),Coin,Start 1P,Start 2P,Pause;",
+	"jn,A,B,X,Y,Select,Start,R,L;",
 	"V,v",`BUILD_DATE
 };
 
@@ -423,19 +423,18 @@ wire dual_stick_game = (game_id == 8'h01) || (game_id == 8'h02);
 
 // Dual-stick games: jump on R1 [8] so right thumb stays free for fire stick
 // Normal games: btn1 = A [4] as usual
-wire m_jump     = btn_fire | joystick_0[8];   // R1 = jump for dual-stick
+wire m_jump     = btn_fire | joystick_0[10];   // R1 = jump for dual-stick
 wire m_p1_btn1  = dual_stick_game ? m_jump : m_btn1_p1;
 wire m_p1_btn2  = m_btn2_p1;
 
 //Start/Coin
-wire m_start1   = btn_1p_start  | joystick_0[7];
-wire m_start2   = btn_2p_start  | joystick_0[8]   // R1 = Start 2P (non-dual-stick)
-                                | joystick_0[11];  // Y  = Start 2P (dual-stick games)
-wire m_coin1    = btn_coin1     | joystick_0[6];
-wire m_pause    = btn_pause     | joystick_0[9];   // L1 = Pause
+wire m_coin1    = btn_coin1     | joystick_0[8] ;
+wire m_start1   = btn_1p_start  | joystick_0[9] ;
+wire m_start2   = btn_2p_start  | joystick_0[10];
+wire m_pause    = btn_pause     | joystick_0[11];   // L1 = Pause
 
 //Service Mode
-wire m_service  = btn_service   | joystick_0[10]; // X button = Test Advance
+wire m_service  = btn_service   | joystick_0[6] ; // X button = Test Advance
 wire m_service2 = btn_service2                  ;
 wire m_service3 = btn_service3                  ;
 wire m_service4 = btn_service4                  ;
