@@ -343,10 +343,10 @@ wire [15:0] joystick_r_analog_0;   // right analog stick: [15:8]=Y signed, [7:0]
 // Qix slot map: [3:0]=U/D/L/R(4-way) [4]=Btn1(Slow) [5]=Btn2(Fast) [6]=Test Advance
 //               [8]=Coin [9]=Start1P [10]=Start2P [11]=Pause
 wire [31:0] joystick_0 = joydb_1ena ? (OSD_STATUS ? 32'b0 :
-                          {joydb_1[7], joydb_1[9], joydb_1[10], joydb_1[11], 1'b0, joydb_1[6], joydb_1[5:4], joydb_1[3:0]})
+                          joydb_1_mapped[11:0])
                           : joystick_0_USB;
 wire [31:0] joystick_1 = joydb_2ena ? (OSD_STATUS ? 32'b0 :
-                          {joydb_2[5:4], joydb_2[3:0]})
+                          joydb_2_mapped[5:0])
                           : joydb_1ena ? joystick_0_USB : joystick_1_USB;
 // [MiSTer-DB9-Pro END]
 
