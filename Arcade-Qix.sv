@@ -458,148 +458,8 @@ wire hs, vs;
 wire ce_pix;
 
 // ============================================================================
-// DIAG-REVERT-2026-06-13: data-CPU / MCU state swatch overlay (Zoo Keeper hang)
-//
-// Top-left panel, 3 rows of nibble-colored hex cells (read L->R = hex digits):
-//   Row 0 (4 cells) = VIDEO-CPU PC (last non-$FFFF): $EFxx poll / $F5xx reset / $E6xx render?
-//   Row 1 (4 cells) = DATA-CPU PC  (last non-$FFFF)
-//   Row 2: c0-c1 = MCU cmd RECEIVED (mcu_pa_cmd): $03/$06 = FIXED, $FF = clobbered |
-//          c2-c3 = shared $3F7 (data reset trigger): bit7 set ($8+) = still resetting, $0x = FIXED
-// Cell color = nyb_color(nibble); EGA-16 legend lives in the vault note.
-// Snapshot latched once per frame (vblank rising) so a still photo is stable.
-//
-// REVERT: delete this whole block; restore `wire [7:0] r, g, b;` here; restore the
-//   QIX_inst .video_r/g/b(r/g/b) connections; remove the dbg_* ports added to
-//   Qix.sv / Qix_CPU.sv / mc68705p3.sv.
-// ============================================================================
-localparam DBG_SWATCH_EN = 1'b1;          // set 1'b0 for a clean pass-through frame
+wire [7:0]  r, g, b;
 
-function automatic [23:0] nyb_color(input [3:0] n);
-    case (n)
-        4'h0: nyb_color = 24'h000000; // 0 black
-        4'h1: nyb_color = 24'h0000FF; // 1 blue
-        4'h2: nyb_color = 24'h00C000; // 2 green
-        4'h3: nyb_color = 24'h00FFFF; // 3 cyan
-        4'h4: nyb_color = 24'hFF0000; // 4 red
-        4'h5: nyb_color = 24'hC000FF; // 5 violet
-        4'h6: nyb_color = 24'hC08000; // 6 orange/brown
-        4'h7: nyb_color = 24'hC0C0C0; // 7 light gray
-        4'h8: nyb_color = 24'h606060; // 8 dark gray
-        4'h9: nyb_color = 24'h6090FF; // 9 light blue
-        4'hA: nyb_color = 24'h60FF60; // A light green
-        4'hB: nyb_color = 24'hA0FFFF; // B light cyan
-        4'hC: nyb_color = 24'hFF8080; // C pink
-        4'hD: nyb_color = 24'hFF80FF; // D light magenta
-        4'hE: nyb_color = 24'hFFFF00; // E yellow
-        4'hF: nyb_color = 24'hFFFFFF; // F white
-    endcase
-endfunction
-
-wire [7:0]  r_core, g_core, b_core;       // raw core RGB (was r, g, b)
-wire [15:0] dbg_cpu_addr;                 // data-CPU bus addr  (Qix.sv tap)
-wire [7:0]  dbg_mcu_porta;                // MCU response byte  (Qix.sv tap, unused this rev)
-wire [10:0] dbg_mcu_pc;                   // MCU 68705 PC       (Qix.sv tap, unused this rev)
-// DIAG-REVERT-2026-06-13: handoff-swatch taps
-wire [15:0] dbg_vid_addr;                 // video-CPU bus addr (Qix.sv tap)
-wire [7:0]  dbg_sh_byte0;                 // last data write to shared byte 0 (data->video cmd)
-wire [1:0]  dbg_firq;                     // {video_firq_latch, data_firq_latch}
-wire [7:0]  dbg_mcu_cmd;                  // command the MCU receives (CRB-gate proof)
-wire [7:0]  dbg_sh_f7;                    // shared byte $3F7 (data reset trigger; bit7)
-
-// raster counter in the core pixel domain (CLK_20M), active-area origin top-left
-reg  [9:0]  dbg_h, dbg_v;
-reg         dbg_hb_d, dbg_vb_d;
-reg  [15:0] vid_pc_filt = 16'h0, data_pc_filt = 16'h0;  // last non-$FFFF PC (drops 6809 VMA)
-reg  [15:0] snap_vid_pc, snap_data_pc;
-reg  [7:0]  snap_byte0;
-reg  [1:0]  snap_firq;
-reg  [3:0]  sticky = 4'h0;   // {vid $E6 render, vid $F5 reset, vid $EF poll, data-firq'd-vid} ever
-reg  [7:0]  snap_mcu_cmd, snap_f7;   // DIAG-REVERT-2026-06-13: CRB-gate proof values
-always @(posedge CLK_20M) begin
-    dbg_hb_d <= hblank;
-    dbg_vb_d <= vblank;
-
-    // last non-$FFFF PC each CPU (filters 6809 VMA dead cycles → real loop address)
-    if (dbg_vid_addr != 16'hFFFF) vid_pc_filt  <= dbg_vid_addr;
-    if (dbg_cpu_addr != 16'hFFFF) data_pc_filt <= dbg_cpu_addr;
-
-    // sticky "video CPU ever reached region X" (page-level), latched until reset
-    if (dbg_vid_addr[15:8] == 8'hE6) sticky[3] <= 1'b1;   // render engine
-    if (dbg_vid_addr[15:8] == 8'hF5) sticky[2] <= 1'b1;   // $F5xx reset path
-    if (dbg_vid_addr[15:8] == 8'hEF) sticky[1] <= 1'b1;   // $EFxx poll loop
-    if (dbg_firq[1])                 sticky[0] <= 1'b1;    // data ever FIRQ'd video
-
-    // new active line = hblank FALLING edge: restart H, advance V (within active frame)
-    if (dbg_hb_d & ~hblank) begin
-        dbg_h <= 10'd0;
-        if (~vblank) dbg_v <= dbg_v + 10'd1;
-    end else if (ce_pix & ~hblank) begin     // active pixel
-        dbg_h <= dbg_h + 10'd1;
-    end
-
-    // new active frame = vblank FALLING edge: restart V, latch per-frame snapshot.
-    if (dbg_vb_d & ~vblank) begin
-        dbg_v <= 10'd0;
-        snap_vid_pc  <= vid_pc_filt;
-        snap_data_pc <= data_pc_filt;
-        snap_byte0   <= dbg_sh_byte0;
-        snap_firq    <= dbg_firq;
-        snap_mcu_cmd <= dbg_mcu_cmd;
-        snap_f7      <= dbg_sh_f7;
-    end
-end
-
-// 3 rows x up to 4 cells; pitch 32 (24px body + 8px gap), margin (16,16)
-wire        dbg_in_box = (dbg_h >= 10'd16) && (dbg_h < 10'd144) &&
-                         (dbg_v >= 10'd16) && (dbg_v < 10'd112);
-wire [9:0]  dbg_rx   = dbg_h - 10'd16;
-wire [9:0]  dbg_ry   = dbg_v - 10'd16;
-wire [1:0]  dbg_cell = dbg_rx[6:5];          // 0..3
-wire [1:0]  dbg_row  = dbg_ry[6:5];          // 0..2
-wire        dbg_body = (dbg_rx[4:0] < 5'd24) && (dbg_ry[4:0] < 5'd24);
-
-reg  [3:0]  dbg_nyb;
-reg         dbg_cell_valid;
-always @* begin
-    dbg_nyb = 4'h0;
-    dbg_cell_valid = 1'b0;
-    case (dbg_row)
-        2'd0: begin dbg_cell_valid = 1'b1;   // Row 0: VIDEO CPU PC
-            case (dbg_cell)
-                2'd0: dbg_nyb = snap_vid_pc[15:12];
-                2'd1: dbg_nyb = snap_vid_pc[11:8];
-                2'd2: dbg_nyb = snap_vid_pc[7:4];
-                2'd3: dbg_nyb = snap_vid_pc[3:0];
-            endcase
-        end
-        2'd1: begin dbg_cell_valid = 1'b1;   // Row 1: DATA CPU PC
-            case (dbg_cell)
-                2'd0: dbg_nyb = snap_data_pc[15:12];
-                2'd1: dbg_nyb = snap_data_pc[11:8];
-                2'd2: dbg_nyb = snap_data_pc[7:4];
-                2'd3: dbg_nyb = snap_data_pc[3:0];
-            endcase
-        end
-        2'd2: begin dbg_cell_valid = 1'b1;   // Row 2: MCU cmd RECEIVED | shared $3F7 (reset trigger)
-            case (dbg_cell)
-                2'd0: dbg_nyb = snap_mcu_cmd[7:4];   // MCU cmd hi  ($0_ if $03/$06 = FIXED; $F_ = clobbered)
-                2'd1: dbg_nyb = snap_mcu_cmd[3:0];   // MCU cmd lo
-                2'd2: dbg_nyb = snap_f7[7:4];         // $3F7 hi: bit7 set ($8+) = still resetting; $0_ = FIXED
-                2'd3: dbg_nyb = snap_f7[3:0];         // $3F7 lo
-            endcase
-        end
-        default: dbg_cell_valid = 1'b0;
-    endcase
-end
-
-wire        dbg_show = DBG_SWATCH_EN && dbg_in_box;
-wire        dbg_lit  = dbg_body && dbg_cell_valid;
-wire [23:0] dbg_rgb  = dbg_lit ? nyb_color(dbg_nyb) : 24'h101010;  // dark panel bg
-
-wire [7:0]  r = dbg_show ? dbg_rgb[23:16] : r_core;
-wire [7:0]  g = dbg_show ? dbg_rgb[15:8]  : g_core;
-wire [7:0]  b = dbg_show ? dbg_rgb[7:0]   : b_core;
-// ===================== end DIAG-REVERT-2026-06-13 swatch =====================
 
 // ROT270 (CCW): Qix, ComplexX, SpaceDungeon, ElecYoYo, Slither
 // ROT0 (none):  Kram, Zoo Keeper
@@ -656,10 +516,9 @@ Qix QIX_inst
 	.video_hblank(hblank),
 	.ce_pix(ce_pix),
 
-	// DIAG-REVERT-2026-06-13: raw core RGB to swatch (was r, g, b)
-	.video_r(r_core),
-	.video_g(g_core),
-	.video_b(b_core),
+	.video_r(r),
+	.video_g(g),
+	.video_b(b),
 
 	.sound_l(audio_l),
 	.sound_r(audio_r),
@@ -675,18 +534,7 @@ Qix QIX_inst
 	.hs_address(nvram_address),
 	.hs_data_out(nvram_data_out),
 	.hs_data_in(nvram_data_in),
-	.hs_write(nvram_write),
-
-	// DIAG-REVERT-2026-06-13: state-swatch taps
-	.dbg_cpu_addr(dbg_cpu_addr),
-	.dbg_mcu_porta(dbg_mcu_porta),
-	.dbg_mcu_pc(dbg_mcu_pc),
-	// DIAG-REVERT-2026-06-13: handoff-swatch taps
-	.dbg_vid_addr(dbg_vid_addr),
-	.dbg_sh_byte0(dbg_sh_byte0),
-	.dbg_firq(dbg_firq),
-	.dbg_mcu_cmd(dbg_mcu_cmd),
-	.dbg_sh_f7(dbg_sh_f7)
+	.hs_write(nvram_write)
 );
 
 // DIRECT NVRAM LOAD/SAVE

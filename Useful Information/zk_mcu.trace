@@ -1,0 +1,6998 @@
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 59 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 41669 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0AD: jmp   $00E9
+0E9: lda   PORTB
+0EB: anda  #$9F
+0ED: sta   PORTB
+0EF: jmp   $A2
+
+   (loops for 33 instructions)
+
+0B9: jmp   $0122
+122: clr   $12
+124: lda   $0684
+127: tax   
+128: lsra  
+129: lsra  
+12A: lsra  
+12B: lsra  
+12C: aslx  
+12D: aslx  
+12E: aslx  
+12F: aslx  
+130: stx   $10
+132: ora   $10
+134: sta   $13
+136: jmp   $A2
+
+   (loops for 50 instructions)
+
+0B9: jmp   $0122
+122: clr   $12
+124: lda   $0684
+127: tax   
+128: lsra  
+129: lsra  
+12A: lsra  
+12B: lsra  
+12C: aslx  
+12D: aslx  
+12E: aslx  
+12F: aslx  
+130: stx   $10
+132: ora   $10
+134: sta   $13
+136: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 11 instructions)
+
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 15577 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0BC: jmp   $0138
+138: ldx   $12
+13A: incx  
+13B: stx   $12
+13D: lda   $0684,x
+140: tax   
+141: lsra  
+142: lsra  
+143: lsra  
+144: lsra  
+145: aslx  
+146: aslx  
+147: aslx  
+148: aslx  
+149: stx   $10
+14B: ora   $10
+14D: sta   $13
+14F: jmp   $A2
+
+   (loops for 908 instructions)
+
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 15 instructions)
+
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 4 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1627 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1625 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1623 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1625 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1627 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1625 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1625 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1627 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1625 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1625 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1623 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 22 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1625 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 24 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5
+
+   (loops for 1624 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+0A2: brset 3, PORTC, $0A2
+0A2: brset 3, PORTC, $0A2
+
+   (loops for 21 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+
+   (loops for 4 instructions)
+
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+
+   (loops for 1626 instructions)
+
+0A8: ldx   PORTA
+0AA: jmp   $00AA,x
+0B0: jmp   $00F1
+0F1: lda   PORTB
+0F3: ora   #$60
+0F5: sta   PORTB
+0F7: jmp   $A2
+
+   (loops for 23 instructions)
+   (interrupted at 0A5, IRQ 0)
+
+080: lda   $14
+082: sta   PORTA
+084: lda   #$FF
+086: sta   DDRA
+088: lda   #$02
+08A: jsr   $018C
+18C: deca  
+18D: bne   $18C
+18C: deca  
+18D: bne   $18C
+18F: rts   
+08D: jsr   $0151
+151: lda   PORTB
+153: bit   #$10
+155: bne   $15B
+15B: anda  #$0F
+15D: ora   #$80
+15F: sta   $11
+161: lda   PORTC
+163: anda  #$07
+165: asla  
+166: asla  
+167: asla  
+168: asla  
+169: ora   $11
+16B: eora  $13
+16D: sta   $14
+16F: rts   
+090: clr   DDRA
+092: rti   
+0A5: brclr 3, PORTC, $0A5
+0A5: brclr 3, PORTC, $0A5

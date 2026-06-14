@@ -59,17 +59,8 @@ module Qix_CPU (
     input         mcu_rom_wr,
 
     input         pause,
-    input  [7:0]  game_id,
-
-    // DIAGNOSTIC: data CPU address bus, for audio-PC instrumentation
-    output [15:0] dbg_cpu_addr,
-    // DIAG-REVERT-2026-06-13: MCU state taps for the wrapper swatch
-    output [7:0]  dbg_mcu_porta,   // = mcu_porta_cache (response byte the data CPU reads)
-    output [10:0] dbg_mcu_pc,      // = 68705 program counter
-    output [7:0]  dbg_mcu_cmd      // DIAG-REVERT-2026-06-13: cmd the MCU receives (CRB-gate proof)
+    input  [7:0]  game_id
 );
-
-assign dbg_cpu_addr = cpu_A;
 
 // ---------------------------------------------------------------------------
 // 6809E bus signals (declared early; driven by mc6809e instance below)
@@ -456,7 +447,6 @@ wire       mcu_irq_n = ~pia2_pb_pin[2];
 
 wire [7:0] mcu_pa_latch;
 wire       mcu_pa_wr_stb;
-wire [10:0] mcu_dbg_pc;   // DIAG-REVERT-2026-06-13: 68705 PC tap
 
 mc68705p3 mcu (
     .clk         (clk_20m),
@@ -475,14 +465,8 @@ mc68705p3 mcu (
     .pc_ddr      (),
     .rom_wr      (mcu_rom_wr),
     .rom_addr    (mcu_rom_addr),
-    .rom_data    (mcu_rom_data),
-    .dbg_pc      (mcu_dbg_pc)        // DIAG-REVERT-2026-06-13
+    .rom_data    (mcu_rom_data)
 );
-
-// DIAG-REVERT-2026-06-13: expose MCU state to the wrapper swatch
-assign dbg_mcu_porta = mcu_porta_cache;
-assign dbg_mcu_pc    = mcu_dbg_pc;
-assign dbg_mcu_cmd   = mcu_pa_cmd;   // DIAG-REVERT-2026-06-13: proof of CRB-gate
 
 // ---------------------------------------------------------------------------
 // CPU data bus read mux — default $FF for open-bus / unimplemented reads

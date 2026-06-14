@@ -46,10 +46,7 @@ module mc68705p3 (
     // ROM loading
     input  wire        rom_wr,
     input  wire [10:0] rom_addr,
-    input  wire [7:0]  rom_data,
-
-    // DIAG-REVERT-2026-06-13: program-counter tap for the wrapper state swatch
-    output wire [10:0] dbg_pc
+    input  wire [7:0]  rom_data
 );
 
 // ---------------------------------------------------------------------------
@@ -95,7 +92,6 @@ reg [6:0]  SP;                           // 0x60..0x7F physical
 reg [4:0]  CC;                           // {H, I, N, Z, C}
 localparam CC_C = 0, CC_Z = 1, CC_N = 2, CC_I = 3, CC_H = 4;
 reg [10:0] PC;
-assign dbg_pc = PC;   // DIAG-REVERT-2026-06-13: PC tap for wrapper swatch
 
 reg [7:0]  pa_latch, pa_ddr;
 reg [7:0]  pb_latch, pb_ddr_r;
@@ -289,8 +285,11 @@ always @(posedge clk) begin
     end else begin
         irq_line_r <= irq_n;
         if (~irq_n & irq_line_r) irq_pending <= 1'b1;
-        // also hold while low (level-triggered behavior)
-        if (~irq_n) irq_pending <= 1'b1;
+        // IRQ-EDGE-FIX-2026-06-13: the level-hold below re-armed irq_pending every cycle while
+        // /IRQ was held low, so the MCU re-entered the INT handler on EVERY fetch and never got
+        // back to its $0A2 command-dispatch loop → never processed MCU commands. Edge-only now.
+        // original level hold (restore to revert):
+        // if (~irq_n) irq_pending <= 1'b1;
         if (irq_service && state == S_PUSH && seq == 4'd5) irq_pending <= 1'b0;
     end
 end
@@ -389,8 +388,11 @@ always @(posedge clk) begin
 
             // ---------- Main fetch cycle ----------
             S_FETCH: begin
-                // Check for pending interrupt (level-sensitive external /IRQ)
-                if (~irq_n & ~CC[CC_I]) begin
+                // IRQ-EDGE-FIX-2026-06-13: trigger on the EDGE-latched irq_pending, NOT the live
+                // ~irq_n level. The level check re-fired the INT every fetch while /IRQ was held
+                // low → MCU wedged in the handler, never dispatched commands.
+                // original: if (~irq_n & ~CC[CC_I]) begin
+                if (irq_pending & ~CC[CC_I]) begin
                     // Trigger interrupt service: push PCL, PCH, X, A, CC
                     irq_service <= 1'b1;
                     seq         <= 4'd0;
