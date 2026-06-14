@@ -432,9 +432,8 @@ Qix_CPU cpu_board (
     .mcu_rom_wr      (mcu_ioctl_wr),
 
     .pause           (pause),
-    .game_id         (game_id),
+    .game_id         (game_id)
 //    .pause           (pause | vid_sh_cs)
-    .dbg_cpu_addr    (dbg_cpu_addr)
 );
 
 // ---------------------------------------------------------------------------
@@ -491,7 +490,7 @@ Qix_Video video_board (
     .pause           (pause),
 //    .pause           (pause | cpu_sh_cs),
     .flip            (flip),
-    .game_id         (game_id)    
+    .game_id         (game_id)
 );
 
 // ---------------------------------------------------------------------------

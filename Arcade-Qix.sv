@@ -557,8 +557,11 @@ pause #(8,8,8,20) pause
 
 wire hblank, vblank;
 wire hs, vs;
-wire [7:0] r, g, b;  // 8-bit RGB direct from Qix core
 wire ce_pix;
+
+// ============================================================================
+wire [7:0]  r, g, b;
+
 
 // ROT270 (CCW): Qix, ComplexX, SpaceDungeon, ElecYoYo, Slither
 // ROT0 (none):  Kram, Zoo Keeper

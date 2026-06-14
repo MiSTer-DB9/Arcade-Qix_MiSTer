@@ -11,7 +11,7 @@
     <region>World</region>
     <category>Maze</category>
 
-    <buttons names="Button 1,Not Used,Test Advance,Not Used,Coin,Start 1P,Start 2P,Pause" default="A,B,X,Y,Select,Start,R,L"/>
+    <buttons names="Not Used,Not Used,Test Advance,Not Used,Coin,Start 1P,Start 2P,Pause"  default="A,B,X,Y,Select,Start,R,L"/>
 
     <rom index="0" zip="elecyoyo.zip" md5="none">
         <!-- Data CPU: 6x 4KB at $A000-$FFFF -->
