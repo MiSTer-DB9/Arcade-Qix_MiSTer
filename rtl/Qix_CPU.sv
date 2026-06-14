@@ -62,7 +62,11 @@ module Qix_CPU (
     input  [7:0]  game_id,
 
     // DIAGNOSTIC: data CPU address bus, for audio-PC instrumentation
-    output [15:0] dbg_cpu_addr
+    output [15:0] dbg_cpu_addr,
+    // DIAG-REVERT-2026-06-13: MCU state taps for the wrapper swatch
+    output [7:0]  dbg_mcu_porta,   // = mcu_porta_cache (response byte the data CPU reads)
+    output [10:0] dbg_mcu_pc,      // = 68705 program counter
+    output [7:0]  dbg_mcu_cmd      // DIAG-REVERT-2026-06-13: cmd the MCU receives (CRB-gate proof)
 );
 
 assign dbg_cpu_addr = cpu_A;
@@ -267,15 +271,26 @@ end
 
 wire [7:0] pia0_pb_i = is_mcu_game ? mcu_porta_cache : coin_input;
 
-// MCU PA input latch: mirrors MAME's coin_w → m_mcu->pa_w(data).
-// Captures every 6809 write to PIA0 PB regardless of DDRB state.
-// pia0_pb_o goes to 0 for input-configured bits (DDRB=0), so we cannot
-// use it directly — we latch cpu_Dout at the moment of the write instead.
+// MCU PA input latch: mirrors MAME's coin_w (PIA0 writepb_handler) — fires ONLY on
+// true PB *port* writes (CRB bit2=1), NOT on DDRB writes (CRB bit2=0). $FEE4 stores the
+// command to PB then writes DDRB=$FF to the SAME addr $1402; the ungated snoop latched
+// that $FF → MCU dispatched on $FF → wrong reply → data reset cascade (ZK black loop).
+// CRB-GATE-FIX-2026-06-13: track PIA0 CRB bit2 (offset-3 writes) and gate the latch on it.
+reg pia0_crb_psel = 1'b0;   // mirror of PIA0 CRB bit2 (1 = PB port selected)
+always @(posedge clk_20m) begin
+    if (reset)
+        pia0_crb_psel <= 1'b0;
+    else if (is_mcu_game && pia0_en && ~cpu_RnW && (cpu_A[1:0] == 2'b11))
+        pia0_crb_psel <= cpu_Dout[2];
+end
+
 reg [7:0] mcu_pa_cmd = 8'hFF;
 always @(posedge clk_20m) begin
     if (reset)
         mcu_pa_cmd <= 8'hFF;
-    else if (is_mcu_game && pia0_en && ~cpu_RnW && (cpu_A[1:0] == 2'b10))
+    // CRB-GATE-FIX-2026-06-13: original ungated line below (restore to revert the fix):
+    // else if (is_mcu_game && pia0_en && ~cpu_RnW && (cpu_A[1:0] == 2'b10))
+    else if (is_mcu_game && pia0_en && ~cpu_RnW && (cpu_A[1:0] == 2'b10) && pia0_crb_psel)
         mcu_pa_cmd <= cpu_Dout;
 end
 
@@ -441,6 +456,7 @@ wire       mcu_irq_n = ~pia2_pb_pin[2];
 
 wire [7:0] mcu_pa_latch;
 wire       mcu_pa_wr_stb;
+wire [10:0] mcu_dbg_pc;   // DIAG-REVERT-2026-06-13: 68705 PC tap
 
 mc68705p3 mcu (
     .clk         (clk_20m),
@@ -459,8 +475,14 @@ mc68705p3 mcu (
     .pc_ddr      (),
     .rom_wr      (mcu_rom_wr),
     .rom_addr    (mcu_rom_addr),
-    .rom_data    (mcu_rom_data)
+    .rom_data    (mcu_rom_data),
+    .dbg_pc      (mcu_dbg_pc)        // DIAG-REVERT-2026-06-13
 );
+
+// DIAG-REVERT-2026-06-13: expose MCU state to the wrapper swatch
+assign dbg_mcu_porta = mcu_porta_cache;
+assign dbg_mcu_pc    = mcu_dbg_pc;
+assign dbg_mcu_cmd   = mcu_pa_cmd;   // DIAG-REVERT-2026-06-13: proof of CRB-gate
 
 // ---------------------------------------------------------------------------
 // CPU data bus read mux — default $FF for open-bus / unimplemented reads

@@ -73,6 +73,8 @@
 		<part name="za_coin.bin" crc="364d3557"/>
 	</rom>
 
+	<nvram index="4" size="1024"></nvram>
+
 	<!--
 	Zoo Keeper has a single action button (Jump). PIA0 PA layout:
 	  bit 7: unused      bit 6: BUTTON1 (Jump)   bit 5: START2     bit 4: START1

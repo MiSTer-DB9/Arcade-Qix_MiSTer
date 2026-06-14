@@ -63,7 +63,19 @@ module Qix (
     input         hs_write,
 
     input         pause,
-    output reg    shared_debug_led
+    output reg    shared_debug_led,
+
+    // DIAG-REVERT-2026-06-13: state-swatch taps to wrapper
+    output [15:0] dbg_cpu_addr,
+    output [7:0]  dbg_mcu_porta,
+    output [10:0] dbg_mcu_pc,
+    // DIAG-REVERT-2026-06-13: handoff-swatch taps (video PC / shared byte0 / FIRQ latches)
+    output [15:0] dbg_vid_addr,
+    output [7:0]  dbg_sh_byte0,
+    output [1:0]  dbg_firq,
+    // DIAG-REVERT-2026-06-13: CRB-gate proof taps
+    output [7:0]  dbg_mcu_cmd,
+    output [7:0]  dbg_sh_f7
 );
 
 // ---------------------------------------------------------------------------
@@ -292,6 +304,19 @@ endgenerate
 wire data_firq_n  = ~data_firq_latch;
 wire video_firq_n = ~video_firq_latch;
 
+// DIAG-REVERT-2026-06-13: handoff-swatch taps — last cmd byte to shared byte 0 + FIRQ latches
+reg [7:0] dbg_sh_byte0_r = 8'h00;
+always @(posedge clk_20m)
+    if (cpu_sh_we && cpu_sh_addr == 10'd0) dbg_sh_byte0_r <= cpu_sh_din;
+assign dbg_sh_byte0 = dbg_sh_byte0_r;
+assign dbg_firq     = {video_firq_latch, data_firq_latch};
+
+// DIAG-REVERT-2026-06-13: capture last data write to shared byte $3F7 (the reset-trigger byte)
+reg [7:0] dbg_sh_f7_r = 8'h00;
+always @(posedge clk_20m)
+    if (cpu_sh_we && cpu_sh_addr == 10'h3F7) dbg_sh_f7_r <= cpu_sh_din;
+assign dbg_sh_f7 = dbg_sh_f7_r;
+
 wire crtc_vsync_out;
 
 // ---------------------------------------------------------------------------
@@ -434,7 +459,10 @@ Qix_CPU cpu_board (
     .pause           (pause),
     .game_id         (game_id),
 //    .pause           (pause | vid_sh_cs)
-    .dbg_cpu_addr    (dbg_cpu_addr)
+    .dbg_cpu_addr    (dbg_cpu_addr),
+    .dbg_mcu_porta   (dbg_mcu_porta),   // DIAG-REVERT-2026-06-13
+    .dbg_mcu_pc      (dbg_mcu_pc),      // DIAG-REVERT-2026-06-13
+    .dbg_mcu_cmd     (dbg_mcu_cmd)      // DIAG-REVERT-2026-06-13
 );
 
 // ---------------------------------------------------------------------------
@@ -491,7 +519,8 @@ Qix_Video video_board (
     .pause           (pause),
 //    .pause           (pause | cpu_sh_cs),
     .flip            (flip),
-    .game_id         (game_id)    
+    .game_id         (game_id),
+    .dbg_vid_addr    (dbg_vid_addr)     // DIAG-REVERT-2026-06-13
 );
 
 // ---------------------------------------------------------------------------

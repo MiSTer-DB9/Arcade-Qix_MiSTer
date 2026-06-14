@@ -59,7 +59,10 @@ module Qix_Video (
 
     input         pause,
     input         flip,
-    input  [7:0]  game_id
+    input  [7:0]  game_id,
+
+    // DIAG-REVERT-2026-06-13: video-CPU PC tap for handoff swatch
+    output [15:0] dbg_vid_addr
 );
 
 // ---------------------------------------------------------------------------
@@ -68,6 +71,7 @@ module Qix_Video (
 wire [15:0] cpu_A;
 wire [7:0]  cpu_Dout;
 wire        cpu_RnW;
+assign dbg_vid_addr = cpu_A;   // DIAG-REVERT-2026-06-13: video PC tap
 
 mc6809e video_cpu (
     .D          (cpu_Din),
