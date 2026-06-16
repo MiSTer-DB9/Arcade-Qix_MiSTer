@@ -136,7 +136,13 @@ begin
 			     porta_read <= '0';
             else
 				  if porta_ddr(count) = '1' then
-                data_out(count) <= porta_data(count);
+                -- PORTA-PIN-READ-FIX-2026-06-15: real MC6821 Port A has a transparent input
+                -- buffer -> reading PRA returns the PIN level, so an external switch can pull a
+                -- driven-high output line low. Zoo Keeper/Kram/EYY drive PIA0 PA out (DDRA=$FF)
+                -- and read the player switches this way. Port B (latch-on-readback) is unchanged.
+                -- original (latch-only) below:
+                -- data_out(count) <= porta_data(count);
+                data_out(count) <= porta_data(count) and pa_i(count);
               else
                 data_out(count) <= pa_i(count);
               end if;

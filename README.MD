@@ -3,6 +3,8 @@
   <img src="Useful Information/ComplexX.png" width="800">
   <img src="Useful Information/SpaceDungeon.png" width="800">
   <img src="Useful Information/Kram.png" width="800">
+  <img src="Useful Information/ZooKeeper.png" width="800">
+
 </p>
 
 <h1 align="center">Qix FPGA Core</h1>
