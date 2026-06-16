@@ -389,6 +389,22 @@ always @(*) begin
     endcase
 end
 
+// DIAG-REVERT-2026-06-15: START1-AT-MUX probe → shared_debug_led → LED_USER (delete block to revert).
+// Latches when p1_pia[4] (ZK START1 mux output → PIA0 PA input pin) goes LOW. Samples the raw
+// mux node BEFORE the PIA, so it's free of all PIA register/DDR read-back semantics — it answers
+// only "does the 1P-start press reach the PIA input?". (Supersedes the Qix_CPU PIA-read probe;
+// dbg_start1_led_w is now left wired but unused.)
+wire dbg_start1_led_w;
+reg  dbg_p1pia4_latch = 1'b0;
+always @(posedge clk_20m) begin
+    if (reset)           dbg_p1pia4_latch <= 1'b0;
+    else if (~p1_pia[4]) dbg_p1pia4_latch <= 1'b1;
+end
+// FIX-VERIFY build: drive LED from the PIA-READ probe (Qix_CPU dbg_start1_led). It latches
+// when the 6809 reads PIA0 PA and gets bit4=0 — i.e. the PortA-pin fix worked and the CPU
+// finally sees START1. (dbg_p1pia4_latch above left in place but unused.)
+always @(*) shared_debug_led = dbg_start1_led_w;
+
 // ---------------------------------------------------------------------------
 // Qix_CPU — data CPU board
 // ---------------------------------------------------------------------------
@@ -432,7 +448,8 @@ Qix_CPU cpu_board (
     .mcu_rom_wr      (mcu_ioctl_wr),
 
     .pause           (pause),
-    .game_id         (game_id)
+    .game_id         (game_id),
+    .dbg_start1_led  (dbg_start1_led_w)   // DIAG-REVERT-2026-06-15: START1-seen probe (delete this line + comma above to revert)
 //    .pause           (pause | vid_sh_cs)
 );
 

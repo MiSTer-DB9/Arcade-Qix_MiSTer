@@ -59,7 +59,9 @@ module Qix_CPU (
     input         mcu_rom_wr,
 
     input         pause,
-    input  [7:0]  game_id
+    input  [7:0]  game_id,
+    // DIAG-REVERT-2026-06-15: START1-seen probe out (delete this line + the comma after game_id to revert)
+    output        dbg_start1_led
 );
 
 // ---------------------------------------------------------------------------
@@ -310,6 +312,19 @@ pia6821 pia0 (
     .cb2_o    (),
     .cb2_oe   ()
 );
+
+// DIAG-REVERT-2026-06-15: START1-seen probe (delete this whole block to revert).
+// Latches HIGH the first time the 6809 reads PIA0 PA (offset 0) and gets bit4=0
+// AND bit7=1 — i.e. ZooKeeper START1 pressed on a real PA-data read. (DDRA=$00 reads
+// back as $00 → bit7=0, so a DDR read can't false-trigger.) Sticky; clears on reset.
+wire dbg_start1_seen = pia0_en & cpu_RnW & (cpu_A[1:0]==2'b00)
+                       & ~pia0_dout[4] & pia0_dout[7];
+reg  dbg_start1_latch = 1'b0;
+always @(posedge clk_20m) begin
+    if (reset)                dbg_start1_latch <= 1'b0;
+    else if (dbg_start1_seen) dbg_start1_latch <= 1'b1;
+end
+assign dbg_start1_led = dbg_start1_latch;
 
 // ---------------------------------------------------------------------------
 // PIA1 ($9800-$9BFF) — spare inputs (unused on base Qix)
