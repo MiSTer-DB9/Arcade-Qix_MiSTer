@@ -211,10 +211,10 @@ wire shared_debug_led_w;
 
 ///////////////////////////////////////////////////
 
-wire [1:0] ar = status[14:13];
-
-assign VIDEO_ARX = status[12] ? ((!ar) ? 12'd16 : (ar - 1'd1)) : ((!ar) ? 12'd14 : (ar - 1'd1));
-assign VIDEO_ARY = status[12] ? ((!ar) ? 12'd14 : 12'd0) : ((!ar) ? 12'd16 : 12'd0);
+// VIDEO_ARX/ARY are assigned below, next to the orientation logic, because the
+// aspect ratio must follow the GAME's orientation (the `horizontal` wire from
+// game_id) — NOT the status[12] monitor toggle alone. game_id/horizontal are
+// declared further down, so the assigns live there to stay in scope.
 
 `include "build_id.v"
 localparam CONF_STR = {
@@ -467,6 +467,19 @@ wire horizontal = (game_id == 8'h03) | (game_id == 8'h04);  // Kram or Zoo Keepe
 wire rotate_ccw = 1;
 wire no_rotate  = (status[12] ^ horizontal) | direct_video;
 wire flip       = status[11] | ~no_rotate;
+
+// --- Output aspect ratio: follow the GAME orientation, not status[12] alone ---
+// The image is landscape exactly when screen_rotate passes through, i.e. the
+// SAME term that drives no_rotate: (status[12] ^ horizontal). Horz game -> 4:3,
+// Vert game -> 3:4 (the arcade MONITOR ratio, NOT the framebuffer pixel ratio).
+// status[12] only flips it when the user rotates the monitor, so the AR hint
+// always tracks what is actually displayed.
+// See Common-Pitfalls/"Aspect ratio set to framebuffer pixel ratio".
+wire [1:0] ar = status[14:13];
+wire landscape = status[12] ^ horizontal;
+assign VIDEO_ARX = landscape ? ((!ar) ? 12'd4 : (ar - 1'd1)) : ((!ar) ? 12'd3 : (ar - 1'd1));
+assign VIDEO_ARY = landscape ? ((!ar) ? 12'd3 : 12'd0)       : ((!ar) ? 12'd4 : 12'd0);
+
 screen_rotate screen_rotate(.*);
 
 arcade_video #(256,24) arcade_video
