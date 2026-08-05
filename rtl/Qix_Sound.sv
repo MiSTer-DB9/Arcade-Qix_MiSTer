@@ -58,8 +58,30 @@ always @(posedge clk_20m)
     else if (snd_por != 2'b00) snd_por <= snd_por - 2'd1;
 wire snd_rst = (snd_por != 2'b00);
 
-// Fractional clock enable: 921.6 kHz from 20 MHz (exact average)
-// Real hardware: 7.3728 MHz xtal / 2 = 3.6864 MHz, M6802 internal /4 = 921.6 kHz
+// Fractional clock enable: 3.6864 MHz cen from 20 MHz (exact average).
+// jt680x wants cen = CRYSTAL rate; its ucode has `cycle_factor: 4`, so the /4 to
+// the 6802's 921.6 kHz E clock happens inside the microcode, not here.
+// MAME: SOUND_CLOCK_OSC 7.3728 MHz, M6802(OSC/2) => 3.6864 MHz xtal, E = 921.6 kHz.
+//
+// ✅ 6802 MICROCODE ACTIVE (QIX-6802-UCODE-2026-08-04). This board's sound CPU is
+// an MC6802; jotego's jt680x ships 6801 ucode, which is the ENHANCED 6800 and ran
+// ~8% fast. hdl/6802.uc/.vh/_param.vh were generated with jtframe from a 6802
+// target whose per-opcode `cycles:` came from MAME's cycles_6800[].
+//
+// MEASURED (Verilator, real Qix sound ROM qq27.u27) before re-enabling:
+//   * write stream byte-identical to 6801 (136 writes, addr+data) => functionally
+//     equivalent; with IRQ active only the PUSHED PC differs, which is the
+//     expected result of an IRQ landing at a different instruction boundary.
+//   * 6802 is only 7.9% slower (9133 vs 8462 cen for the same 136 writes).
+//   * HW proved 15% slower is HARMLESS (6801 @ 3_133_440 ran with graphics OK),
+//     so a 7.9% slowdown cannot be the cause of anything.
+//   * fit resources identical: 1,659,364 mem bits, 223 RAM blocks, 57 DSP.
+//
+// ⚠️ CLOCK EXPERIMENTS TRIED ON HW AND FAILED — DO NOT RETRY:
+//    921_600   -> 4x too slow ("like someone farting"). The /4 is in the ucode.
+//    3_200_000 -> compensation for 6801 timing; obsolete now the ucode is 6802.
+//    3_133_440 -> the 15%-slowdown DISCRIMINATOR (graphics OK) — test, not a fix.
+// Full reasoning trail: Claude/qix_zookeeper_music_tempo_2026-06-16.md
 reg [24:0] snd_acc;
 wire snd_cen_raw = (snd_acc >= 25'd20_000_000);
 always @(posedge clk_20m) begin
@@ -83,13 +105,25 @@ wire rom_cs          = (snd_A >= 16'hD000);        // $D000-$FFFF (12KB)
 // ---------------------------------------------------------------------------
 // PIA enables
 // ---------------------------------------------------------------------------
-// cpu68 sets up bus on negedge when snd_cen=1.
-// snd_cen_negedge captures that on the same negedge → cs goes high on the
-// immediately following posedge (PIA write) AND the following negedge
-// (PIA control logic). One clean pulse per CPU bus cycle.
-reg snd_cen_negedge;
-always @(negedge clk_20m) snd_cen_negedge <= snd_cen;
-
+// NOTE (unresolved): jt680x's ucode has `cycle_factor: 4`, so one CPU bus cycle
+// is 4 `cen` pulses — meaning `snd_cen & cs` below enables each PIA ~4x per
+// access. The comment this replaced was written for the OLD cpu68 core, where
+// snd_cen really was one pulse per bus cycle. An attempt to make it one pulse
+// (commented out below) BLACK-SCREENED the hardware, so the 4x behaviour is
+// what actually works today. Leave it alone without a simulation.
+//
+// ❌ PIA-EN-1PER-BUSCYCLE-2026-08-04 REVERTED — HW: all games except ZK went
+// BLACK SCREEN and ZK lost sound. The bus_phase commit point was mis-aligned
+// against jt680x's internal 4-step bus cycle, so PIA accesses landed on a step
+// where address/data were not valid. DO NOT re-apply without a simulation that
+// establishes the correct phase. Reverted code kept below for reference:
+//   reg [1:0] bus_phase;
+//   always @(posedge clk_20m)
+//       if (snd_rst)      bus_phase <= 2'd0;
+//       else if (snd_cen) bus_phase <= bus_phase + 2'd1;
+//   wire bus_commit = snd_cen & (bus_phase == 2'd3);
+//   wire sndpia2_en = bus_commit & sndpia2_cs_addr;
+//   wire sndpia1_en = bus_commit & sndpia1_cs_addr;
 wire sndpia2_en = snd_cen & sndpia2_cs_addr;
 wire sndpia1_en = snd_cen & sndpia1_cs_addr;
 
@@ -272,6 +306,9 @@ TMS5220 u_tms5200 (
 );
 
 // IRQ to audio CPU: OR of all PIA interrupt outputs (active-high)
+// NOTE (2026-06-16): tried sndpia1-only (MAME-faithful) to fix ZK fast music —
+// DISPROVEN on HW, music unchanged. Reverted to baseline. sndpia2-in-sint is a
+// real MAME deviation but NOT the music-tempo cause; revisit only with speech.
 assign snd_irq = sndpia1_irqa | sndpia1_irqb | sndpia2_irqa | sndpia2_irqb;
 
 // ---------------------------------------------------------------------------

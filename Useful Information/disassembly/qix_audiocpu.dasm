@@ -1,4 +1,162 @@
-F920: 0F       sei  
+F800: 80 B1    suba #$B1
+F802: DA F5    orb  $F5
+F804: FF F5 DA stx  $F5DA
+F807: B1 80 4F cmpa $804F
+F80A: 26 0B    bne  $F817
+F80C: 01       nop  
+F80D: 0B       sev  
+F80E: 26 4F    bne  $F85F
+F810: 80 AA    suba #$AA
+F812: D3       illegal
+F813: EE FF    ldx  $FF,x
+F815: EE D3    ldx  $D3,x
+F817: AA 80    ora  $80,x
+F819: 56       rorb 
+F81A: 2D 12    blt  $F82E
+F81C: 01       nop  
+F81D: 12       illegal
+F81E: 2D 56    blt  $F876
+F820: 80 A3    suba #$A3
+F822: CC       illegal
+F823: E7 FF    stb  $FF,x
+F825: E7 CC    stb  $CC,x
+F827: A3       illegal
+F828: 80 5D    suba #$5D
+F82A: 34       des  
+F82B: 19       daa  
+F82C: 01       nop  
+F82D: 19       daa  
+F82E: 34       des  
+F82F: 5D       tstb 
+F830: 80 9C    suba #$9C
+F832: C5 DF    bitb #$DF
+F834: FF DF C5 stx  $DFC5
+F837: 9C 80    cmpx $80
+F839: 64 3B    lsr  $3B,x
+F83B: 20 01    bra  $F83E
+F83D: 20 3B    bra  $F87A
+F83F: 64 80    lsr  $80,x
+F841: 95 BC    bita $BC
+F843: D8 FF    eorb $FF
+F845: D8 BC    eorb $BC
+F847: 95 80    bita $80
+F849: 6B       illegal
+F84A: 42       illegal
+F84B: 27 01    beq  $F84E
+F84D: 27 42    beq  $F891
+F84F: 6B       illegal
+F850: 80 8E    suba #$8E
+F852: B5 D1 FF bita $D1FF
+F855: D1 B5    cmpb $B5
+F857: 8E 80 72 lds  #$8072
+F85A: 49       rola 
+F85B: 2E 01    bgt  $F85E
+F85D: 2E 49    bgt  $F8A8
+F85F: 72       illegal
+F860: 80 87    suba #$87
+F862: AE CA    lds  $CA,x
+F864: FF CA AE stx  $CAAE
+F867: 87 80    sta  #$80
+F869: 79 50 35 rol  $5035
+F86C: 01       nop  
+F86D: 35       txs  
+F86E: 50       negb 
+F86F: 79 80 80 rol  $8080
+F872: A7 C3    sta  $C3,x
+F874: FF C3 A7 stx  $C3A7
+F877: 80 80    suba #$80
+F879: 80 57    suba #$57
+F87B: 3C       illegal
+F87C: 01       nop  
+F87D: 3C       illegal
+F87E: 57       asrb 
+F87F: 80 80    suba #$80
+F881: 80 A0    suba #$A0
+F883: BC FF BC cmpx $FFBC
+F886: A0 80    suba $80,x
+F888: 80 80    suba #$80
+F88A: 5E       illegal
+F88B: 43       coma 
+F88C: 01       nop  
+F88D: 43       coma 
+F88E: 5E       illegal
+F88F: 80 80    suba #$80
+F891: 80 99    suba #$99
+F893: B5 FF B5 bita $FFB5
+F896: 99 80    adca $80
+F898: 80 80    suba #$80
+F89A: 65       illegal
+F89B: 4A       deca 
+F89C: 01       nop  
+F89D: 4A       deca 
+F89E: 65       illegal
+F89F: 80 80    suba #$80
+F8A1: 80 92    suba #$92
+F8A3: AE FF    lds  $FF,x
+F8A5: AE 92    lds  $92,x
+F8A7: 80 80    suba #$80
+F8A9: 80 6C    suba #$6C
+F8AB: 53       comb 
+F8AC: 01       nop  
+F8AD: 53       comb 
+F8AE: 6C 80    inc  $80,x
+F8B0: 80 80    suba #$80
+F8B2: 8B A7    adda #$A7
+F8B4: FF A7 8B stx  $A78B
+F8B7: 80 80    suba #$80
+F8B9: 80 73    suba #$73
+F8BB: 5A       decb 
+F8BC: 01       nop  
+F8BD: 5A       decb 
+F8BE: 73 80 80 com  $8080
+F8C1: 80 85    suba #$85
+F8C3: A0 FF    suba $FF,x
+F8C5: A0 85    suba $85,x
+F8C7: 80 80    suba #$80
+F8C9: 80 7A    suba #$7A
+F8CB: 61       illegal
+F8CC: 01       nop  
+F8CD: 61       illegal
+F8CE: 61       illegal
+F8CF: 80 80    suba #$80
+F8D1: 80 80    suba #$80
+F8D3: 99 FF    adca $FF
+F8D5: 99 80    adca $80
+F8D7: 80 80    suba #$80
+F8D9: 80 80    suba #$80
+F8DB: 68 01    asl  $01,x
+F8DD: 68 80    asl  $80,x
+F8DF: 80 80    suba #$80
+F8E1: 80 80    suba #$80
+F8E3: 92 FF    sbca $FF
+F8E5: 92 80    sbca $80
+F8E7: 80 80    suba #$80
+F8E9: 80 80    suba #$80
+F8EB: 6F 01    clr  $01,x
+F8ED: 6F 80    clr  $80,x
+F8EF: 80 80    suba #$80
+F8F1: 80 80    suba #$80
+F8F3: 8B FF    adda #$FF
+F8F5: 8B 80    adda #$80
+F8F7: 80 80    suba #$80
+F8F9: 80 80    suba #$80
+F8FB: 76 01 76 ror  $0176
+F8FE: 80 80    suba #$80
+F900: 80 80    suba #$80
+F902: 80 85    suba #$85
+F904: FF 85 80 stx  $8580
+F907: 80 80    suba #$80
+F909: 80 80    suba #$80
+F90B: 7D 01 7D tst  $017D
+F90E: 80 80    suba #$80
+F910: 80 80    suba #$80
+F912: 80 80    suba #$80
+F914: FF 80 80 stx  $8080
+F917: 80 80    suba #$80
+F919: 80 80    suba #$80
+F91B: 80 01    suba #$01
+F91D: 80 80    suba #$80
+F91F: 80 0F    suba #$0F
 F921: 8E 00 7F lds  #$007F
 F924: 30       tsx  
 F925: 6F 00    clr  $00,x

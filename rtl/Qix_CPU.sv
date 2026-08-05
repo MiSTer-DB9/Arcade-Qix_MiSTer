@@ -458,7 +458,23 @@ wire [7:0] pia2_pb_pin = pia2_pb_o | ~pia2_pb_oe;
 
 wire [7:0] mcu_pb_in = {3'b000, coin_input[7], coin_input[3:0]};
 wire [3:0] mcu_pc_in = {pia2_pb_pin[3], coin_input[6:4]};
-wire       mcu_irq_n = ~pia2_pb_pin[2];
+// EYY-MCU-IRQ-2026-08-04: the MCU IRQ must come from the PIA2 PB **output
+// latch**, not from the pull-up-modified PIN.
+//
+// MAME (`qix_m.cpp:185-197` coinctrl_w) asserts/clears M68705_IRQ_LINE from
+// `BIT(data,2)` — the value the data CPU WROTE. Our `pia2_pb_pin` ORs in
+// `~pia2_pb_oe`, so any bit configured as an INPUT reads back as 1. If EYY
+// leaves PIA2 DDRB bit 2 as an input, `mcu_irq_n` is then STUCK ASSERTED — and
+// the 68705's IRQ is EDGE-triggered, so the handler never re-runs. The MCU
+// therefore never rewrites port A, `mcu_porta_cache` never updates, and the
+// SERVICE (Test Advance) switch — which for MCU games reaches the data CPU only
+// via MCU port A — is dead. Matches the reported symptom exactly: EYY sits in
+// the NVRAM setup screen and no button advances it.
+//
+// Using the latch makes an undriven bit read 0 => IRQ deasserted => a real
+// 0->1 write produces a real edge, as on hardware and in MAME.
+// Original: wire mcu_irq_n = ~pia2_pb_pin[2];
+wire       mcu_irq_n = ~pia2_pb_o[2];
 
 wire [7:0] mcu_pa_latch;
 wire       mcu_pa_wr_stb;
