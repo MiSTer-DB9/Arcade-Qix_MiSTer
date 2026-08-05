@@ -56,13 +56,8 @@ module jt680x_ctrl(
     output reg   stack_busy
 );
 
-// QIX-6802-UCODE-2026-08-04: this core ships 6801 microcode, but Qix's sound
-// CPU is an MC6802. Switched to generated 6802 ucode (6800 cycle counts from
-// MAME cycles_6800[]). Revert = restore the 6801 include commented below.
-// REVERTED 2026-08-04 (black screens). 6802 variant was: `include "6802_param.vh"
-`include "6802_param.vh"
-// REVERTED 2026-08-04 (black screens). 6802 variant was: `include "6802.vh"
-`include "6802.vh"
+`include "6801_param.vh"
+`include "6801.vh"
 
 wire [4:0] jsr_sel;
 reg  [2:0] iv_sel;
