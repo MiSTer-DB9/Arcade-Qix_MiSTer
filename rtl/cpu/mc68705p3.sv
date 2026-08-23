@@ -801,17 +801,32 @@ always @(posedge clk) begin
                         latched_raddr <= swi_service ? 11'h7FC : 11'h7FA;
                         seq           <= 4'd8;
                     end
-                    4'd8:  begin           // issue vector-lo fetch (pipeline gap)
+                    // DIAG-REVERT-2026-08-23: original seq 8/9/10 below, uncomment to restore.
+                    // These states are mc_tick-gated (~20 clk apart) but were written with the
+                    // 1-clk "pipeline gap" shape used by the reset path, so eprom_q had already
+                    // advanced to the LOW vector byte by the time PC[10:8] was latched.
+                    // 4'd8:  begin           // issue vector-lo fetch (pipeline gap)
+                    //     mem_raddr     <= swi_service ? 11'h7FD : 11'h7FB;
+                    //     latched_raddr <= swi_service ? 11'h7FD : 11'h7FB;
+                    //     seq           <= 4'd9;
+                    // end
+                    // 4'd9:  begin           // latch vector hi
+                    //     PC[10:8] <= eprom_q[2:0];
+                    //     seq      <= 4'd10;
+                    // end
+                    // 4'd10: begin           // latch vector lo, jump directly to fetch
+                    //     PC[7:0]     <= eprom_q;
+                    4'd8:  begin           // DIAG: latch vector hi here (eprom_q valid), issue lo fetch
+                        PC[10:8]      <= eprom_q[2:0];
                         mem_raddr     <= swi_service ? 11'h7FD : 11'h7FB;
                         latched_raddr <= swi_service ? 11'h7FD : 11'h7FB;
                         seq           <= 4'd9;
                     end
-                    4'd9:  begin           // latch vector hi
-                        PC[10:8] <= eprom_q[2:0];
-                        seq      <= 4'd10;
+                    4'd9:  begin           // DIAG: latch vector lo
+                        PC[7:0] <= eprom_q;
+                        seq     <= 4'd10;
                     end
-                    4'd10: begin           // latch vector lo, jump directly to fetch
-                        PC[7:0]     <= eprom_q;
+                    4'd10: begin           // exit to fetch (11 MC total, unchanged)
                         irq_service <= 1'b0;
                         swi_service <= 1'b0;
                         seq         <= 4'd0;
