@@ -27,6 +27,15 @@ set_global_assignment -name VHDL_FILE rtl/ram_rom/dpram_dc.vhd
 
 set_global_assignment -name VHDL_FILE rtl/custom/pia6821.vhd
 
+# SN76489 PSG (Slither only) - Arnim Laeuger, see rtl/custom/sn76489/COPYING
+set_global_assignment -name VHDL_FILE rtl/custom/sn76489/sn76489_clock_div.vhd
+set_global_assignment -name VHDL_FILE rtl/custom/sn76489/sn76489_latch_ctrl.vhd
+set_global_assignment -name VHDL_FILE rtl/custom/sn76489/sn76489_attenuator.vhd
+set_global_assignment -name VHDL_FILE rtl/custom/sn76489/sn76489_tone.vhd
+set_global_assignment -name VHDL_FILE rtl/custom/sn76489/sn76489_noise.vhd
+set_global_assignment -name VHDL_FILE rtl/custom/sn76489/sn76489_top.vhd
+set_global_assignment -name VHDL_FILE rtl/custom/sn76489_wrap.vhd
+
 set_global_assignment -name VERILOG_FILE rtl/sound/jt680x/hdl/jt680x.v
 set_global_assignment -name VERILOG_FILE rtl/sound/jt680x/hdl/jt680x_ctrl.v
 set_global_assignment -name VERILOG_FILE rtl/sound/jt680x/hdl/jt680x_alu.v

@@ -142,6 +142,7 @@ dpram_dc #(.widthad_a(10)) shared_ram_inst (
 //     $10000-$12FFF : audio CPU (12KB at CPU $D000-$FFFF, same as Qix)
 // ---------------------------------------------------------------------------
 wire is_zookeep_top = (game_id == 8'h04);
+wire is_slither_top = (game_id == 8'h05);
 
 wire cpu_ioctl_wr = ioctl_wr & (ioctl_index == 8'd0) & (
     is_zookeep_top ?  (ioctl_addr < 25'h08000)
@@ -321,6 +322,35 @@ wire [7:0] coin_pia = {1'b1, 1'b1, coin[1], coin[0], service4, service3, service
 wire [3:0] p1_joy_pia = {p1_joystick[2], p1_joystick[1], p1_joystick[3], p1_joystick[0]};
 wire [3:0] p2_joy_pia = {p2_joystick[2], p2_joystick[1], p2_joystick[3], p2_joystick[0]};
 
+// ---------------------------------------------------------------------------
+// Slither trackball stand-in
+//
+// Slither reads a real trackball as two free-running 8-bit position counters:
+//   PIA1 port A ($9800) = trak_r<1> = AN1 = Y axis (MAME applies PORT_REVERSE)
+//   PIA2 port A ($9C00) = trak_r<0> = AN0 = X axis
+// Taken from slither(machine_config&) — the INPUT_PORTS comments name the PIAs
+// the other way round and are stale.
+//
+// Until a real mouse/spinner is wired, the joystick drives the counters. The
+// game differences successive reads, so a steady count rate reads as steady
+// motion; holding a direction moves at a constant speed.
+// ---------------------------------------------------------------------------
+reg  [7:0]  trak_x   = 8'h00;
+reg  [7:0]  trak_y   = 8'h00;
+reg  [15:0] trak_div = 16'd0;
+always @(posedge clk_20m) begin
+    trak_div <= trak_div + 16'd1;
+    if (trak_div == 16'd0) begin                          // ~305 counts/sec
+        if      (~p1_joystick[3]) trak_x <= trak_x + 8'd1;   // right
+        else if (~p1_joystick[2]) trak_x <= trak_x - 8'd1;   // left
+        if      (~p1_joystick[0]) trak_y <= trak_y - 8'd1;   // up   (Y reversed)
+        else if (~p1_joystick[1]) trak_y <= trak_y + 8'd1;   // down
+    end
+end
+
+// PIA1 port A: trackball Y on Slither, unused (pulled high) on every other game.
+wire [7:0] spare_pia = is_slither_top ? trak_y : 8'hFF;
+
 reg [7:0] p1_pia;
 reg [7:0] p2_pia;
 reg [7:0] in0_pia;  // PIA1 port B — normally 0xFF, Space Dungeon uses [1:0] for starts
@@ -367,11 +397,14 @@ always @(*) begin
             p2_pia = {1'b1, p2_btn1, 2'b11, p2_joy_pia};
         end
 
-        8'h05: begin    // Slither (trackball — joystick not connected, spare inputs handle it)
-            // P1: [7]=BTN1 [6]=S1 [5]=S2 [4]=BTN2 [3:0]=1111
+        8'h05: begin    // Slither (trackball)
+            // P1: [7]=BTN1 [6]=S1 [5]=S2 [4]=BTN2 [3:0]=unused — matches INPUT_PORTS(slither)
             p1_pia = {p1_btn1, start_buttons[0], start_buttons[1], p1_btn2, 4'hF};
-            // P2: [7]=BTN1 [6:5]=11 [4]=BTN2 [3:0]=1111
-            p2_pia = {p2_btn1, 2'b11, p2_btn2, 4'hF};
+            // PIA2 port A is the trackball X axis, NOT player-2 buttons
+            // (slither(machine_config&): m_pia[2]->readpa_handler = trak_r<0> = AN0).
+            // DIAG-REVERT-2026-08-23: original below, uncomment to restore
+            // p2_pia = {p2_btn1, 2'b11, p2_btn2, 4'hF};
+            p2_pia = trak_x;
         end
 
         8'h06: begin    // Electric Yo-Yo
@@ -426,9 +459,12 @@ Qix_CPU cpu_board (
 
     .p1_input        (p1_pia),
     .coin_input      (coin_pia),
-    .spare_input     (8'hFF),
+    .spare_input     (spare_pia),
     .in0_input       (in0_pia),
     .p2_input        (p2_pia),
+
+    .sn1_audio       (sn1_audio),
+    .sn2_audio       (sn2_audio),
 
     .crtc_vsync      (crtc_vsync_out),
 
@@ -511,6 +547,22 @@ Qix_Video video_board (
 );
 
 // ---------------------------------------------------------------------------
+// Audio output select
+//
+// Slither has no 6802/DAC board — its audio is the two SN76489s hung off PIA1/
+// PIA2 port B (mono, summed). Every other game keeps the DAC board untouched.
+// ---------------------------------------------------------------------------
+wire signed [15:0] dac_audio_l, dac_audio_r;
+wire        [7:0]  sn1_audio, sn2_audio;   // signed 8-bit from each PSG
+
+wire signed [15:0] sn1_ext = {{8{sn1_audio[7]}}, sn1_audio};
+wire signed [15:0] sn2_ext = {{8{sn2_audio[7]}}, sn2_audio};
+wire signed [15:0] sn_mix  = (sn1_ext + sn2_ext) <<< 6;   // +/-256 -> +/-16384
+
+assign sound_l = is_slither_top ? sn_mix : dac_audio_l;
+assign sound_r = is_slither_top ? sn_mix : dac_audio_r;
+
+// ---------------------------------------------------------------------------
 // Qix_Sound — audio board
 // ---------------------------------------------------------------------------
 Qix_Sound sound_board (
@@ -524,8 +576,8 @@ Qix_Sound sound_board (
 
     .vol_data         (snd_vol),
 
-    .audio_l          (sound_l),
-    .audio_r          (sound_r),
+    .audio_l          (dac_audio_l),
+    .audio_r          (dac_audio_r),
 
     .ioctl_addr       (ioctl_addr),
     .ioctl_data       (ioctl_data),
