@@ -168,6 +168,8 @@ mc6809e data_cpu (
     .nRESET (~reset)
 );
 
+wire is_slither = (game_id == 8'h05);
+
 // ---------------------------------------------------------------------------
 // MCU game detection — Space Dungeon, Kram, Electric Yo-Yo, Zoo Keeper
 // ---------------------------------------------------------------------------
@@ -221,7 +223,16 @@ pia6821 sndpia0 (
     .data_out (sndpia_dout),
     .irqa     (sndpia_irqa),
     .irqb     (sndpia_irqb),
-    .pa_i     (snd_data_in),
+    // Slither: $9000 is not a sound-board PIA. Per schematic DSR 2/2, its port A
+    // is J17 = the player-2 / cocktail control panel, and the data CPU's input
+    // poll reads the player's buttons from HERE whenever $8400 != 0:
+    //     E277: LDX #$9400 / E27A: TST $8400 / E27F: LDX #$9000 / E282: LDA ,X
+    // Feeding it the 6802 reply byte leaves every button dead in that mode. No
+    // separate P2 panel is mapped yet, so mirror the player-1 byte: unchanged in
+    // upright, playable in cocktail.
+    // DIAG-REVERT-2026-08-23: original below, uncomment to restore
+    // .pa_i     (snd_data_in),
+    .pa_i     (is_slither ? p1_input : snd_data_in),
     .pa_o     (sndpia_pa_o),
     .pa_oe    (sndpia_pa_oe),
     .ca1      (snd_irq_from_snd),
@@ -350,8 +361,6 @@ wire [7:0] pia1_pb_o;     // Slither: SN76489 #1 data bus
 // CRB is programmed $26 (b1=1 => low-to-high active, b0=0 => no CPU IRQ), so a
 // rising edge on CB1 sets the flag without asserting IRQ.
 // ---------------------------------------------------------------------------
-wire is_slither = (game_id == 8'h05);
-
 reg pia1_crb_psel = 1'b0;
 reg pia2_crb_psel = 1'b0;
 always @(posedge clk_20m) begin
