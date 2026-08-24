@@ -38,6 +38,10 @@ module Qix_CPU (
     input  [7:0]  in0_input,      // PIA1 port B: spare (unused on base Qix)
     input  [7:0]  p2_input,       // PIA2 port A: player 2 joystick
 
+    // Slither PSG audio — 2x SN76489 hung off PIA1/PIA2 port B (game_id 5 only)
+    output [7:0]  sn1_audio,      // signed
+    output [7:0]  sn2_audio,      // signed
+
     // Sound PIA interface (to/from Qix_Sound)
     output [7:0]  snd_data_out,   // sndPIA0 port A output → sound CPU
     input  [7:0]  snd_data_in,    // sndPIA0 port A input ← sound CPU reply
@@ -164,6 +168,8 @@ mc6809e data_cpu (
     .nRESET (~reset)
 );
 
+wire is_slither = (game_id == 8'h05);
+
 // ---------------------------------------------------------------------------
 // MCU game detection — Space Dungeon, Kram, Electric Yo-Yo, Zoo Keeper
 // ---------------------------------------------------------------------------
@@ -217,7 +223,16 @@ pia6821 sndpia0 (
     .data_out (sndpia_dout),
     .irqa     (sndpia_irqa),
     .irqb     (sndpia_irqb),
-    .pa_i     (snd_data_in),
+    // Slither: $9000 is not a sound-board PIA. Per schematic DSR 2/2, its port A
+    // is J17 = the player-2 / cocktail control panel, and the data CPU's input
+    // poll reads the player's buttons from HERE whenever $8400 != 0:
+    //     E277: LDX #$9400 / E27A: TST $8400 / E27F: LDX #$9000 / E282: LDA ,X
+    // Feeding it the 6802 reply byte leaves every button dead in that mode. No
+    // separate P2 panel is mapped yet, so mirror the player-1 byte: unchanged in
+    // upright, playable in cocktail.
+    // DIAG-REVERT-2026-08-23: original below, uncomment to restore
+    // .pa_i     (snd_data_in),
+    .pa_i     (is_slither ? p1_input : snd_data_in),
     .pa_o     (sndpia_pa_o),
     .pa_oe    (sndpia_pa_oe),
     .ca1      (snd_irq_from_snd),
@@ -331,6 +346,131 @@ assign dbg_start1_led = dbg_start1_latch;
 // ---------------------------------------------------------------------------
 wire [7:0] pia1_dout;
 wire       pia1_irqa, pia1_irqb;
+wire [7:0] pia1_pb_o;     // Slither: SN76489 #1 data bus
+
+// ---------------------------------------------------------------------------
+// Slither SN76489 /READY handshake on PIA1/PIA2 CB1.
+//
+// Slither has no 6802 sound board (qix.cpp: "Slither uses 2 SN76489's for sound
+// instead of the 6802+DAC; these are accessed via the PIAs"). The data CPU writes
+// each sound byte to PIA port B — CB2 strobes /WE — then polls CRB bit 7 (IRQB1)
+// for the chip's /READY rising edge:
+//     F9DA: TST ,X / STA ,X / TST $1,X / BPL   ($9802 = PIA1 PB, $9C02 = PIA2 PB)
+// With CB1 tied high that poll never exits, so the data CPU never reaches
+// $E141 CLR $8016, and the video CPU spins at $E87D waiting for it => blue screen.
+// CRB is programmed $26 (b1=1 => low-to-high active, b0=0 => no CPU IRQ), so a
+// rising edge on CB1 sets the flag without asserting IRQ.
+// ---------------------------------------------------------------------------
+reg pia1_crb_psel = 1'b0;
+reg pia2_crb_psel = 1'b0;
+always @(posedge clk_20m) begin
+    if (reset) begin
+        pia1_crb_psel <= 1'b0;
+        pia2_crb_psel <= 1'b0;
+    end else begin
+        if (pia1_en & ~cpu_RnW & (cpu_A[1:0] == 2'b11)) pia1_crb_psel <= cpu_Dout[2];
+        if (pia2_en & ~cpu_RnW & (cpu_A[1:0] == 2'b11)) pia2_crb_psel <= cpu_Dout[2];
+    end
+end
+
+wire pia1_pb_wr = pia1_en & ~cpu_RnW & (cpu_A[1:0] == 2'b10) & pia1_crb_psel;
+wire pia2_pb_wr = pia2_en & ~cpu_RnW & (cpu_A[1:0] == 2'b10) & pia2_crb_psel;
+
+// DIAG-REVERT-2026-08-23: /READY stand-in that got Slither booting (HW-confirmed
+// 2026-08-23, boots to the operator menu). Superseded below by the real SN76489,
+// whose ready_o drives CB1. Uncomment this and comment the PSG block to get back
+// to the known-good booting state without the PSGs.
+// localparam [8:0] SN_BUSY = 9'd320;   // ~16us at 20 MHz
+// reg [8:0] sn1_busy = 9'd0;
+// reg [8:0] sn2_busy = 9'd0;
+// always @(posedge clk_20m) begin
+//     if (reset) begin
+//         sn1_busy <= 9'd0;
+//         sn2_busy <= 9'd0;
+//     end else begin
+//         if (pia1_pb_wr)             sn1_busy <= SN_BUSY;
+//         else if (sn1_busy != 9'd0)  sn1_busy <= sn1_busy - 9'd1;
+//         if (pia2_pb_wr)             sn2_busy <= SN_BUSY;
+//         else if (sn2_busy != 9'd0)  sn2_busy <= sn2_busy - 9'd1;
+//     end
+// end
+// wire pia1_cb1 = is_slither ? (sn1_busy == 9'd0) : 1'b1;
+// wire pia2_cb1 = is_slither ? (sn2_busy == 9'd0) : 1'b1;
+
+// ---------------------------------------------------------------------------
+// 2x SN76489 (Slither). Data bus = PIA port B output latch; /WE derived from the
+// port-B data write rather than cb2_out, because pia6821.vhd clocks cb2_out on
+// the FALLING edge of clk_20m (the mixed-edge pattern qix-fpga-fixes.md flags as
+// a synthesis hazard). Same instant, same byte, one clock domain.
+//
+// ready_o (low while the chip is busy) drives CB1: its rising edge is the
+// low-to-high transition the $F9DE poll waits on.
+//
+// ⚠️ SN_CLK_HZ is a BEST GUESS. SLITHER_CLOCK_OSC is referenced at qix.cpp:737
+// but not defined in our (truncated) copy of the driver. The vault records the
+// Slither data CPU at OSC/4/4 ~= 1.34 MHz; this assumes the PSGs share that rate.
+// If the pitch is wrong, this constant is the only thing to change.
+// ---------------------------------------------------------------------------
+localparam [24:0] SN_CLK_HZ = 25'd1_340_000;
+
+reg [24:0] sn_acc = 25'd0;
+wire       sn_cen = (sn_acc >= 25'd20_000_000);
+always @(posedge clk_20m) begin
+    if (sn_cen) sn_acc <= sn_acc - 25'd20_000_000 + SN_CLK_HZ;
+    else        sn_acc <= sn_acc + SN_CLK_HZ;
+end
+
+// /WE strobe: 8 clk of setup after the PIA latches port B, then ~88 clk (4.4us)
+// low — several sn_cen edges, so the synchronous PSG cannot miss it.
+reg [6:0] sn1_wr_cnt = 7'd0;
+reg [6:0] sn2_wr_cnt = 7'd0;
+always @(posedge clk_20m) begin
+    if (reset) begin
+        sn1_wr_cnt <= 7'd0;
+        sn2_wr_cnt <= 7'd0;
+    end else begin
+        if (pia1_pb_wr)              sn1_wr_cnt <= 7'd96;
+        else if (sn1_wr_cnt != 7'd0) sn1_wr_cnt <= sn1_wr_cnt - 7'd1;
+        if (pia2_pb_wr)              sn2_wr_cnt <= 7'd96;
+        else if (sn2_wr_cnt != 7'd0) sn2_wr_cnt <= sn2_wr_cnt - 7'd1;
+    end
+end
+wire sn1_we_n = ~((sn1_wr_cnt != 7'd0) & (sn1_wr_cnt <= 7'd88));
+wire sn2_we_n = ~((sn2_wr_cnt != 7'd0) & (sn2_wr_cnt <= 7'd88));
+
+wire sn1_ready, sn2_ready;
+
+// /CE must be part of the bus access, NOT tied low. sn76489_latch_ctrl.vhd:134
+// drives `ready_o <= ready_q when ce_n_i = '0' else '1'`, and ready_q is cleared
+// only by the `elsif ce_n_i = '1'` branch — so a permanently-low /CE latches READY
+// high after the very first write and never produces another rising edge. Driving
+// /CE with the strobe gives one clean high->low->high per write, which is the
+// edge the $F9DE poll consumes.
+sn76489_wrap sn1 (
+    .clock_i    (clk_20m),
+    .clock_en_i (sn_cen),
+    .res_n_i    (~reset),
+    .ce_n_i     (sn1_we_n),
+    .we_n_i     (sn1_we_n),
+    .ready_o    (sn1_ready),
+    .d_i        (pia1_pb_o),
+    .aout_o     (sn1_audio)
+);
+
+sn76489_wrap sn2 (
+    .clock_i    (clk_20m),
+    .clock_en_i (sn_cen),
+    .res_n_i    (~reset),
+    .ce_n_i     (sn2_we_n),
+    .we_n_i     (sn2_we_n),
+    .ready_o    (sn2_ready),
+    .d_i        (pia2_pb_o),
+    .aout_o     (sn2_audio)
+);
+
+// Non-Slither games keep the original constant, so their CB1 is unchanged.
+wire pia1_cb1 = is_slither ? sn1_ready : 1'b1;
+wire pia2_cb1 = is_slither ? sn2_ready : 1'b1;
 
 pia6821 pia1 (
     .clk      (clk_20m),
@@ -350,9 +490,11 @@ pia6821 pia1 (
     .ca2_o    (),
     .ca2_oe   (),
     .pb_i     (in0_input),
-    .pb_o     (),
+    .pb_o     (pia1_pb_o),
     .pb_oe    (),
-    .cb1      (1'b1),
+    // DIAG-REVERT-2026-08-23: original below, uncomment to restore
+    // .cb1      (1'b1),
+    .cb1      (pia1_cb1),   // DIAG: Slither SN76489 /READY handshake
     .cb2_i    (1'b1),
     .cb2_o    (),
     .cb2_oe   ()
@@ -385,7 +527,9 @@ pia6821 pia2 (
     .pb_i     (8'h00),
     .pb_o     (pia2_pb_o),  // bit 2 → MCU IRQ, bit 3 → MCU PC[3] (coinctrl)
     .pb_oe    (pia2_pb_oe),
-    .cb1      (1'b1),
+    // DIAG-REVERT-2026-08-23: original below, uncomment to restore
+    // .cb1      (1'b1),
+    .cb1      (pia2_cb1),   // DIAG: Slither SN76489 /READY handshake
     .cb2_i    (1'b1),
     .cb2_o    (),
     .cb2_oe   ()

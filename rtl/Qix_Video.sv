@@ -110,6 +110,7 @@ wire palette_cs      = (cpu_A[15:10] == 6'b10_0100);               // $9000-$93F
 // VS5 chip select: $9400-$97FF (bits [9:2] don't-care, bits [1:0] select function)
 wire vs5_cs          = (cpu_A[15:10] == 6'b10_0101);               // $9400-$97FF
 wire vram_latch_cs   = vs5_cs & (cpu_A[1:0] == 2'b00);             // xx00: VRAM latch r/w
+wire vram_mask_cs    = vs5_cs & (cpu_A[1:0] == 2'b01);             // xx01: VRAM access mask (Slither only)
 wire latch_hi_cs     = vs5_cs & (cpu_A[1:0] == 2'b10);             // xx10: addr latch hi
 wire latch_lo_cs     = vs5_cs & (cpu_A[1:0] == 2'b11);             // xx11: addr latch lo
 
@@ -208,9 +209,34 @@ wire [7:0] vram_dout;
 wire [7:0] vram_latch_dout;
 wire [7:0] scanline_latch;
 
+// ---------------------------------------------------------------------------
+// VRAM access mask ($9401) — SLITHER ONLY.
+//
+// Memory map: "100101--------01  R/W  video RAM access mask [2]" /
+//             "[2] Slither only. This hardware feature is NOT present in the
+//              Taito games."
+// Every VRAM write is blended: vram = (vram & ~mask) | (data & mask).
+// The video CPU writes it 39 times (via direct page, DP=$94, `STA <$01`), and
+// NOT only with $FF — e.g. #$E0, plus the $E3FD/$E403 clear entry points which
+// take the mask from the caller. Leaving it unimplemented writes whole bytes and
+// corrupts partial-plane drawing during gameplay.
+// ---------------------------------------------------------------------------
+wire is_slither = (game_id == 8'h05);
+
+reg [7:0] vram_mask = 8'hFF;
+always @(posedge clk_20m) begin
+    if (reset)                       vram_mask <= 8'hFF;
+    else if (vram_mask_cs & cpu_wr)  vram_mask <= cpu_Dout;
+end
+
 qix_vram vram (
     .clk            (clk_20m),
     .flip           (flip),
+
+    // Slither VRAM access mask. Set (1'b0) here to disable it and fall back to
+    // whole-byte writes for every game.
+    .mask_en        (is_slither),
+    .vram_mask      (vram_mask),
 
     // CPU direct port ($0000-$7FFF)
     .addr           (cpu_A[14:0]),
@@ -383,6 +409,7 @@ wire [7:0] cpu_Din =
     palbank_cs     ? 8'h00                :  // Test
     palette_cs     ? pal_cpu_dout         :
     vram_latch_cs  ? vram_latch_dout      :
+    vram_mask_cs   ? vram_mask            :   // $9401 is R/W per the memory map
 //    latch_hi_cs    ? vram_latch_addr_hi   :  // Test
 //    latch_lo_cs    ? vram_latch_addr_lo   :  // Test
     scanline_cs    ? scanline_latch       :

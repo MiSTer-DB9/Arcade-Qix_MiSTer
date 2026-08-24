@@ -1,0 +1,1222 @@
+000: FF       stx   ,x
+001: 1F F7    bclr  7, $F7
+003: FF       stx   ,x
+004: FF       stx   ,x
+005: FF       stx   ,x
+006: FF       stx   ,x
+007: FF       stx   ,x
+008: FE       ldx   ,x
+009: 77       asr   ,x
+00A: FF       stx   ,x
+00B: FF       stx   ,x
+00C: FF       stx   ,x
+00D: FF       stx   ,x
+00E: FF       stx   ,x
+00F: FF       stx   ,x
+010: 00 00 00 brset 0, PORTA, $013
+013: 00 00 00 brset 0, PORTA, $016
+016: 00 00 00 brset 0, PORTA, $019
+019: 00 00 00 brset 0, PORTA, $01C
+01C: 00 00 00 brset 0, PORTA, $01F
+01F: 00 00 00 brset 0, PORTA, $022
+022: 00 00 00 brset 0, PORTA, $025
+025: 00 00 00 brset 0, PORTA, $028
+028: 00 00 00 brset 0, PORTA, $02B
+02B: 00 00 00 brset 0, PORTA, $02E
+02E: 00 00 00 brset 0, PORTA, $031
+031: 00 00 00 brset 0, PORTA, $034
+034: 00 00 00 brset 0, PORTA, $037
+037: 00 00 00 brset 0, PORTA, $03A
+03A: 00 00 00 brset 0, PORTA, $03D
+03D: 00 00 00 brset 0, PORTA, $040
+040: 00 00 00 brset 0, PORTA, $043
+043: 00 00 00 brset 0, PORTA, $046
+046: 00 00 00 brset 0, PORTA, $049
+049: 00 00 00 brset 0, PORTA, $04C
+04C: 00 00 00 brset 0, PORTA, $04F
+04F: 00 00 00 brset 0, PORTA, $052
+052: 00 00 00 brset 0, PORTA, $055
+055: 00 00 00 brset 0, PORTA, $058
+058: 00 00 00 brset 0, PORTA, $05B
+05B: 00 00 00 brset 0, PORTA, $05E
+05E: 00 00 00 brset 0, PORTA, $061
+061: 00 00 00 brset 0, PORTA, $064
+064: 00 00 00 brset 0, PORTA, $067
+067: 00 00 00 brset 0, PORTA, $06A
+06A: 00 00 00 brset 0, PORTA, $06D
+06D: 00 00 00 brset 0, PORTA, $070
+070: 00 00 00 brset 0, PORTA, $073
+073: 00 00 00 brset 0, PORTA, $076
+076: 00 00 00 brset 0, PORTA, $079
+079: 00 00 00 brset 0, PORTA, $07C
+07C: 00 00 00 brset 0, PORTA, $07F
+07F: 00 02 03 brset 0, PORTC, $085
+082: D7 FA 97 sta   $FA97,x
+085: FA       ora   ,x
+086: 96       fcb   $96
+087: FB       adda  ,x
+088: 96       fcb   $96
+089: FB       adda  ,x
+08A: 96       fcb   $96
+08B: F8       eora  ,x
+08C: 85       fcb   $85
+08D: 10 26    bset  0, $26
+08F: 43       coma  
+090: 44       lsra  
+091: 24 10    bcc   $0A3
+093: 96       fcb   $96
+094: F9       adca  ,x
+095: 81       rts   
+096: 7E       jmp   ,x
+097: 10 27    bset  0, $27
+099: 15 20    bclr  2, $20
+09B: D6 FA C5 lda   $FAC5,x
+09E: 02 27 FA brset 1, $27, $09B
+0A1: 97       tax   
+0A2: FB       adda  ,x
+0A3: 96       fcb   $96
+0A4: FA       ora   ,x
+0A5: 44       lsra  
+0A6: 24 0E    bcc   $0B6
+0A8: 96       fcb   $96
+0A9: FB       adda  ,x
+0AA: A7       fcb   $A7
+0AB: A0 10    suba  #$10
+0AD: 8C       fcb   $8C
+0AE: 9B       sei   
+0AF: E0 26    suba  $26,x
+0B1: 04 10 8E brset 2, $10, $042
+0B4: 9B       sei   
+0B5: 80       rti   
+0B6: 10 AF    bset  0, $AF
+0B8: E3 11    cpx   $11,x
+0BA: A3 E1    cpx   #$E1
+0BC: 27 CC    beq   $08A
+0BE: D6 F8 C5 lda   $F8C5,x
+0C1: 02 27 C6 brset 1, $27, $08A
+0C4: A6 C0    lda   #$C0
+0C6: 97       tax   
+0C7: F9       adca  ,x
+0C8: 11 83    bclr  0, $83
+0CA: 9B       sei   
+0CB: E0 26    suba  $26,x
+0CD: BC CE    jmp   $CE
+0CF: 9B       sei   
+0D0: 80       rti   
+0D1: 20 B7    bra   $08A
+0D3: CC 62 03 jmp   $6203
+0D6: 97       tax   
+0D7: FA       ora   ,x
+0D8: 86       fcb   $86
+0D9: 0A D7 F8 brset 5, $D7, $0D4
+0DC: 97       tax   
+0DD: F8       eora  ,x
+0DE: 8E       fcb   $8E
+0DF: 01 80 30 brclr 0, $80, $112
+0E2: 1F 26    bclr  7, $26
+0E4: FC       jmp   ,x
+0E5: 96       fcb   $96
+0E6: F8       eora  ,x
+0E7: 85       fcb   $85
+0E8: 10 26    bset  0, $26
+0EA: ED D7    jsr   $D7,x
+0EC: F8       eora  ,x
+0ED: 5A       decx  
+0EE: D7 FA C6 sta   $FAC6,x
+0F1: 0A D7 F8 brset 5, $D7, $0EC
+0F4: 8E       fcb   $8E
+0F5: 9F       txa   
+0F6: 39 BD    rol   $BD
+0F8: 9D       nop   
+0F9: A3 96    cpx   #$96
+0FB: FB       adda  ,x
+0FC: 8E       fcb   $8E
+0FD: 01 80 30 brclr 0, $80, $130
+100: 1F 26    bclr  7, $26
+102: FC       jmp   ,x
+103: 96       fcb   $96
+104: FB       adda  ,x
+105: 20 83    bra   $08A
+107: 96       fcb   $96
+108: 9D       nop   
+109: 26 11    bne   $11C
+10B: 96       fcb   $96
+10C: 97       tax   
+10D: 27 17    beq   $126
+10F: 8D       fcb   $8D
+110: 46       rora  
+111: 8E       fcb   $8E
+112: 9F       txa   
+113: 3C D6    inc   $D6
+115: AB C4    adda  #$C4
+117: 7F       clr   ,x
+118: 3A BD    dec   $BD
+11A: 9D       nop   
+11B: A3 96    cpx   #$96
+11D: B1 8D    cmpa  $8D
+11F: 1E 96    bset  7, $96
+121: B2 8D    sbca  $8D
+123: 1A 0F    bset  5, $0F
+125: 9D       nop   
+126: 8E       fcb   $8E
+127: 8F       fcb   $8F
+128: AB BD    adda  #$BD
+12A: 9D       nop   
+12B: A3 BD    cpx   #$BD
+12D: 9E       fcb   $9E
+12E: 3F 97    clr   $97
+130: B4 0F    anda  $0F
+132: B3 8D    cpx   $8D
+134: 09 86 20 brclr 4, $86, $157
+137: 97       tax   
+138: 97       tax   
+139: 97       tax   
+13A: 9E       fcb   $9E
+13B: 7E       jmp   ,x
+13C: 9D       nop   
+13D: 87       fcb   $87
+13E: 34 12    lsr   $12
+140: 8E       fcb   $8E
+141: 9F       txa   
+142: 57       asrx  
+143: 44       lsra  
+144: 44       lsra  
+145: 44       lsra  
+146: 44       lsra  
+147: A6 86    lda   #$86
+149: BD 9D    jsr   $9D
+14B: 87       fcb   $87
+14C: A6 E4    lda   #$E4
+14E: 84       fcb   $84
+14F: 0F A6 86 brclr 7, $A6, $0D8
+152: BD 9D    jsr   $9D
+154: 87       fcb   $87
+155: 35       fcb   $35
+156: 92       fcb   $92
+157: 96       fcb   $96
+158: 9E       fcb   $9E
+159: 26 13    bne   $16E
+15B: 96       fcb   $96
+15C: B4 BD    anda  $BD
+15E: 9E       fcb   $9E
+15F: 69 A7    rol   $A7,x
+161: E2 BD    sbca  $BD,x
+163: 9E       fcb   $9E
+164: 3F A1    clr   $A1
+166: E0 27    suba  $27,x
+168: 05 86 07 brclr 2, $86, $172
+16B: BD 9D    jsr   $9D
+16D: 87       fcb   $87
+16E: 39 8D    rol   $8D
+170: E6 9E    lda   $9E,x
+172: B1 30    cmpa  $30
+174: 1F 9F    bclr  7, $9F
+176: B1 86    cmpa  $86
+178: 01 97 9E brclr 0, $97, $119
+17B: 97       tax   
+17C: 97       tax   
+17D: 7E       jmp   ,x
+17E: 89       fcb   $89
+17F: 07 8D D5 brclr 3, $8D, $157
+182: 96       fcb   $96
+183: AB 26    adda  #$26
+185: 06 9E B1 brset 3, $9E, $139
+188: 30 01    neg   PORTB
+18A: 20 E9    bra   $175
+18C: 2B 06    bmi   $194
+18E: 9E       fcb   $9E
+18F: B1 30    cmpa  $30
+191: 1F 20    bclr  7, $20
+193: E1 9E    cmpa  $9E,x
+195: B1 30    cmpa  $30
+197: 89       fcb   $89
+198: 01 00 20 brclr 0, PORTA, $1BB
+19B: D9 8D B9 adca  $8DB9,x
+19E: 96       fcb   $96
+19F: AB 2B    adda  #$2B
+1A1: 08 9E B1 brset 4, $9E, $155
+1A4: 30 89    neg   $89
+1A6: 01 00 20 brclr 0, PORTA, $1C9
+1A9: CB 9E B1 adda  $9EB1
+1AC: 30 01    neg   PORTB
+1AE: 20 C5    bra   $175
+1B0: 8D       fcb   $8D
+1B1: A5 96    bit   #$96
+1B3: AB 2B    adda  #$2B
+1B5: 08 9E B1 brset 4, $9E, $169
+1B8: 30 89    neg   $89
+1BA: FF       stx   ,x
+1BB: 00 20 B7 brset 0, $20, $175
+1BE: 9E       fcb   $9E
+1BF: B1 30    cmpa  $30
+1C1: 1F 20    bclr  7, $20
+1C3: B1 86    cmpa  $86
+1C5: 0A BD 9D brset 5, $BD, $165
+1C8: 87       fcb   $87
+1C9: 8D       fcb   $8D
+1CA: 8C       fcb   $8C
+1CB: 96       fcb   $96
+1CC: AB 2B    adda  #$2B
+1CE: 06 9E B1 brset 3, $9E, $182
+1D1: 30 01    neg   PORTB
+1D3: 20 A0    bra   $175
+1D5: 9E       fcb   $9E
+1D6: B1 30    cmpa  $30
+1D8: 89       fcb   $89
+1D9: FF       stx   ,x
+1DA: 00 20 98 brset 0, $20, $175
+1DD: 96       fcb   $96
+1DE: 97       tax   
+1DF: 27 07    beq   $1E8
+1E1: 0F 97 BD brclr 7, $97, $1A1
+1E4: 89       fcb   $89
+1E5: 57       asrx  
+1E6: 0C 9D 7E brset 6, $9D, $267
+1E9: 9D       nop   
+1EA: 93       fcb   $93
+1EB: 0F B1 0F brclr 7, $B1, $1FD
+1EE: B2 20    sbca  $20
+1F0: F5       bit   ,x
+1F1: 34 12    lsr   $12
+1F3: CE 9B 80 ldx   $9B80
+1F6: BD 9D    jsr   $9D
+1F8: 3F A7    clr   $A7
+1FA: C0 81 0D suba  $810D
+1FD: 27 2B    beq   $22A
+1FF: 11 83    bclr  0, $83
+201: 9B       sei   
+202: E0 27    suba  $27,x
+204: 11 81    bclr  0, $81
+206: 7F       clr   ,x
+207: 27 0F    beq   $218
+209: 81       rts   
+20A: 18 27    bset  4, $27
+20C: 09 81 20 brclr 4, $81, $22F
+20F: 25 15    bcs   $226
+211: BD 9D    jsr   $9D
+213: 87       fcb   $87
+214: 20 E0    bra   $1F6
+216: 35       fcb   $35
+217: 92       fcb   $92
+218: 11 83    bclr  0, $83
+21A: 9B       sei   
+21B: 81       rts   
+21C: 27 08    beq   $226
+21E: 8E       fcb   $8E
+21F: 8F       fcb   $8F
+220: AE BD    ldx   #$BD
+222: 9D       nop   
+223: A3 33    cpx   #$33
+225: 5F       clrx  
+226: 33 5F    com   $5F
+228: 20 CC    bra   $1F6
+22A: 86       fcb   $86
+22B: 01 35 92 brclr 0, $35, $1C0
+22E: A6 80    lda   #$80
+230: 27 12    beq   $244
+232: D6 FA C5 lda   $FAC5,x
+235: 02 27 FA brset 1, $27, $232
+238: 97       tax   
+239: FB       adda  ,x
+23A: 86       fcb   $86
+23B: 08 5A 26 brset 4, $5A, $264
+23E: FD       jsr   ,x
+23F: 4A       deca  
+240: 26 FA    bne   $23C
+242: 20 EA    bra   $22E
+244: 39 96    rol   $96
+246: FA       ora   ,x
+247: 44       lsra  
+248: 24 FB    bcc   $245
+24A: 96       fcb   $96
+24B: FB       adda  ,x
+24C: 39 86    rol   $86
+24E: 01 20 01 brclr 0, $20, $252
+251: 9B       sei   
+252: AE 10    ldx   #$10
+254: 7F       clr   ,x
+255: 5C       incx  
+256: 2A FC    bpl   $254
+258: A6 FF    lda   #$FF
+25A: B7 04    sta   DDRA
+25C: 3F 01    clr   PORTB
+25E: A6 E0    lda   #$E0
+260: B7 05    sta   DDRB
+262: 9A       cli   
+263: B6 02    lda   PORTC
+265: A4 07    anda  #$07
+267: 48       asla  
+268: B7 12    sta   $12
+26A: B6 01    lda   PORTB
+26C: A4 10    anda  #$10
+26E: BA 12    ora   $12
+270: 48       asla  
+271: 48       asla  
+272: 48       asla  
+273: B7 12    sta   $12
+275: B6 01    lda   PORTB
+277: A4 0F    anda  #$0F
+279: BA 12    ora   $12
+27B: B7 12    sta   $12
+27D: BE 11    ldx   $11
+27F: 26 02    bne   $283
+281: B8 10    eora  $10
+283: B7 00    sta   PORTA
+285: 20 DC    bra   $263
+287: C4 86 3F anda  $863F
+28A: BD 9E    jsr   $9E
+28C: 69 BD    rol   $BD,x
+28E: 9E       fcb   $9E
+28F: 3F 81    clr   $81
+291: 3F 27    clr   $27
+293: 11 8E    bclr  0, $8E
+295: 8A       fcb   $8A
+296: 99       sec   
+297: 20 E2    bra   $27B
+299: 07 0D 0A brclr 3, $0D, $2A6
+29C: 52       fcb   $52
+29D: 4F       clra  
+29E: 4D       tsta  
+29F: 20 41    bra   $2E2
+2A1: 52       fcb   $52
+2A2: 45       fcb   $45
+2A3: 41       fcb   $41
+2A4: 00 AF 5E brset 0, $AF, $305
+2A7: A6 C4    lda   #$C4
+2A9: BD 9E    jsr   $9E
+2AB: 69 96    rol   $96,x
+2AD: 94       fcb   $94
+2AE: A7       fcb   $A7
+2AF: 41       fcb   $41
+2B0: 7E       jmp   ,x
+2B1: 9D       nop   
+2B2: 93       fcb   $93
+2B3: 8E       fcb   $8E
+2B4: 9F       txa   
+2B5: 39 BD    rol   $BD
+2B7: 9D       nop   
+2B8: A3 C6    cpx   #$C6
+2BA: 08 A6 C4 brset 4, $A6, $281
+2BD: BD 89    jsr   $89
+2BF: 3E       fcb   $3E
+2C0: A6 41    lda   #$41
+2C2: BD 89    jsr   $89
+2C4: 3E       fcb   $3E
+2C5: 86       fcb   $86
+2C6: 74       lsr   ,x
+2C7: 6D 43    tst   $43,x
+2C9: 26 02    bne   $2CD
+2CB: 86       fcb   $86
+2CC: 20 BD    bra   $28B
+2CE: 9D       nop   
+2CF: 87       fcb   $87
+2D0: 86       fcb   $86
+2D1: 20 BD    bra   $290
+2D3: 9D       nop   
+2D4: 87       fcb   $87
+2D5: 33 44    com   $44
+2D7: 5A       decx  
+2D8: 26 E1    bne   $2BB
+2DA: 7E       jmp   ,x
+2DB: 9D       nop   
+2DC: 93       fcb   $93
+2DD: 8E       fcb   $8E
+2DE: 8A       fcb   $8A
+2DF: F8       eora  ,x
+2E0: 20 99    bra   $27B
+2E2: 0D 0A 07 brclr 6, $0A, $2EC
+2E5: 42       fcb   $42
+2E6: 52       fcb   $52
+2E7: 45       fcb   $45
+2E8: 41       fcb   $41
+2E9: 4B       fcb   $4B
+2EA: 20 54    bra   $340
+2EC: 41       fcb   $41
+2ED: 42       fcb   $42
+2EE: 4C       inca  
+2EF: 45       fcb   $45
+2F0: 20 46    bra   $338
+2F2: 55       fcb   $55
+2F3: 4C       inca  
+2F4: 4C       inca  
+2F5: 0D 0A 00 brclr 6, $0A, $2F8
+2F8: 0D 0A 07 brclr 6, $0A, $302
+2FB: 44       lsra  
+2FC: 55       fcb   $55
+2FD: 50       negx  
+2FE: 4C       inca  
+2FF: 49       rola  
+300: 43       coma  
+301: 41       fcb   $41
+302: 54       lsrx  
+303: 45       fcb   $45
+304: 20 45    bra   $34B
+306: 4E       fcb   $4E
+307: 54       lsrx  
+308: 52       fcb   $52
+309: 59       rolx  
+30A: 0D 0A 00 brclr 6, $0A, $30D
+30D: 0C AA 86 brset 6, $AA, $296
+310: 20 BD    bra   $2CF
+312: 9D       nop   
+313: 87       fcb   $87
+314: 0C A7 9E brset 6, $A7, $2B5
+317: 86       fcb   $86
+318: 9F       txa   
+319: B1 BD    cmpa  $BD
+31B: 9E       fcb   $9E
+31C: 3F 81    clr   $81
+31E: 39 27    rol   $27
+320: 0E 81 35 brset 7, $81, $358
+323: 26 0E    bne   $333
+325: 30 01    neg   PORTB
+327: 9F       txa   
+328: B1 BD    cmpa  $BD
+32A: 9E       fcb   $9E
+32B: 3F 4D    clr   $4D
+32D: 2A 04    bpl   $333
+32F: 0F A7 0F brclr 7, $A7, $341
+332: AA BD    ora   #$BD
+334: 98       clc   
+335: 00 9F A4 brset 0, $9F, $2DC
+338: 9F       txa   
+339: B1 BD    cmpa  $BD
+33B: 9E       fcb   $9E
+33C: 3F 97    clr   $97
+33E: A6 86    lda   #$86
+340: 3F BD    clr   $BD
+342: 9E       fcb   $9E
+343: 69 BD    rol   $BD,x
+345: 9E       fcb   $9E
+346: 3F 81    clr   $81
+348: 3F 26    clr   $26
+34A: 03 7E 9E brclr 1, $7E, $2EB
+34D: D4 8E 8A anda  $8E8A,x
+350: 99       sec   
+351: BD 9D    jsr   $9D
+353: A3 0F    cpx   #$0F
+355: A7       fcb   $A7
+356: 0F A4 0F brclr 7, $A4, $368
+359: A5 0F    bit   #$0F
+35B: AA 7E    ora   #$7E
+35D: 9D       nop   
+35E: 93       fcb   $93
+35F: BD 9D    jsr   $9D
+361: 3F BD    clr   $BD
+363: 9D       nop   
+364: 87       fcb   $87
+365: 0F 94 81 brclr 7, $94, $2E9
+368: 49       rola  
+369: 26 06    bne   $371
+36B: 0F 9B 0F brclr 7, $9B, $37D
+36E: 9C       rsp   
+36F: 20 24    bra   $395
+371: 81       rts   
+372: 4A       deca  
+373: 27 7E    beq   $3F3
+375: 81       rts   
+376: 56       rorx  
+377: 27 1F    beq   $398
+379: 0C 94 81 brset 6, $94, $2FD
+37C: 54       lsrx  
+37D: 27 19    beq   $398
+37F: CE 8B FA ldx   $8BFA
+382: A1 C4    cmpa  #$C4
+384: 10 27    bset  0, $27
+386: 00 96 33 brset 0, $96, $3BC
+389: 44       lsra  
+38A: 11 83    bclr  0, $83
+38C: 8C       fcb   $8C
+38D: 1E 26    bset  7, $26
+38F: F2       sbca  ,x
+390: 86       fcb   $86
+391: 07 BD 9D brclr 3, $BD, $331
+394: 87       fcb   $87
+395: 7E       jmp   ,x
+396: 9D       nop   
+397: 93       fcb   $93
+398: 96       fcb   $96
+399: 9D       nop   
+39A: 27 1C    beq   $3B8
+39C: 8D       fcb   $8D
+39D: 02 20 F5 brset 1, $20, $395
+3A0: CE 9F B5 ldx   $9FB5
+3A3: A6 43    lda   #$43
+3A5: 91       fcb   $91
+3A6: 94       fcb   $94
+3A7: 26 06    bne   $3AF
+3A9: 6F C4    clr   $C4,x
+3AB: 6F 41    clr   $41,x
+3AD: 6F 43    clr   $43,x
+3AF: 33 44    com   $44
+3B1: 11 83    bclr  0, $83
+3B3: 9F       txa   
+3B4: D5 26 EC bit   $26EC,x
+3B7: 39 CE    rol   $CE
+3B9: 9F       txa   
+3BA: B5 9E    bit   $9E
+3BC: B1 AC    cmpa  $AC
+3BE: C4 27 0A anda  $270A
+3C1: 33 44    com   $44
+3C3: 11 83    bclr  0, $83
+3C5: 9F       txa   
+3C6: D5 26 F4 bit   $26F4,x
+3C9: 20 0C    bra   $3D7
+3CB: A6 43    lda   #$43
+3CD: 91       fcb   $91
+3CE: 94       fcb   $94
+3CF: 26 06    bne   $3D7
+3D1: 6F C0    clr   $C0,x
+3D3: 6F C4    clr   $C4,x
+3D5: 20 BE    bra   $395
+3D7: 8E       fcb   $8E
+3D8: 8B       fcb   $8B
+3D9: E0 BD    suba  $BD,x
+3DB: 9D       nop   
+3DC: A3 7E    cpx   #$7E
+3DE: 9D       nop   
+3DF: 93       fcb   $93
+3E0: 0D 0A 07 brclr 6, $0A, $3EA
+3E3: 4E       fcb   $4E
+3E4: 4F       clra  
+3E5: 20 53    bra   $43A
+3E7: 55       fcb   $55
+3E8: 43       coma  
+3E9: 48       asla  
+3EA: 20 45    bra   $431
+3EC: 4E       fcb   $4E
+3ED: 54       lsrx  
+3EE: 52       fcb   $52
+3EF: 59       rolx  
+3F0: 0D 0A 00 brclr 6, $0A, $3F3
+3F3: 86       fcb   $86
+3F4: 02 97 AA brset 1, $97, $3A1
+3F7: 7E       jmp   ,x
+3F8: 8B       fcb   $8B
+3F9: 0F 41 01 brclr 7, $41, $3FD
+3FC: 9F       txa   
+3FD: 89       fcb   $89
+3FE: 42       fcb   $42
+3FF: 01 9F 8A brclr 0, $9F, $38C
+402: 43       coma  
+403: 01 9F 88 brclr 0, $9F, $38E
+406: 44       lsra  
+407: 01 9F 8B brclr 0, $9F, $395
+40A: 50       negx  
+40B: 02 9F 86 brset 1, $9F, $394
+40E: 53       comx  
+40F: 02 9F 92 brset 1, $9F, $3A4
+412: 55       fcb   $55
+413: 02 9F 90 brset 1, $9F, $3A6
+416: 58       aslx  
+417: 02 9F 8C brset 1, $9F, $3A6
+41A: 59       rolx  
+41B: 02 9F 8E brset 1, $9F, $3AC
+41E: 86       fcb   $86
+41F: 20 BD    bra   $3DE
+421: 9D       nop   
+422: 87       fcb   $87
+423: 10 AE    bset  0, $AE
+425: 42       fcb   $42
+426: E6 41    lda   $41,x
+428: 5A       decx  
+429: 26 1F    bne   $44A
+42B: A6 A4    lda   #$A4
+42D: BD 89    jsr   $89
+42F: 3E       fcb   $3E
+430: 86       fcb   $86
+431: 20 BD    bra   $3F0
+433: 9D       nop   
+434: 87       fcb   $87
+435: BD 89    jsr   $89
+437: F1       cmpa  ,x
+438: 10 27    bset  0, $27
+43A: FF       stx   ,x
+43B: 54       lsrx  
+43C: B6 9B    lda   $9B
+43E: 80       rti   
+43F: 81       rts   
+440: 0D 27 04 brclr 6, $27, $447
+443: 8D       fcb   $8D
+444: 29 E7    bhcs  $42D
+446: A4 7E    anda  #$7E
+448: 9D       nop   
+449: 93       fcb   $93
+44A: A6 A4    lda   #$A4
+44C: BD 89    jsr   $89
+44E: 3E       fcb   $3E
+44F: A6 21    lda   #$21
+451: BD 89    jsr   $89
+453: 3E       fcb   $3E
+454: 86       fcb   $86
+455: 20 BD    bra   $414
+457: 9D       nop   
+458: 87       fcb   $87
+459: BD 89    jsr   $89
+45B: F1       cmpa  ,x
+45C: 10 27    bset  0, $27
+45E: FF       stx   ,x
+45F: 30 B6    neg   $B6
+461: 9B       sei   
+462: 80       rti   
+463: 81       rts   
+464: 0D 27 E0 brclr 6, $27, $447
+467: 8D       fcb   $8D
+468: 05 ED A4 brclr 2, $ED, $40F
+46B: 7E       jmp   ,x
+46C: 9D       nop   
+46D: 93       fcb   $93
+46E: 34 50    lsr   $50
+470: 6F E2    clr   $E2,x
+472: 6F E2    clr   $E2,x
+474: 8E       fcb   $8E
+475: 9B       sei   
+476: 80       rti   
+477: A6 80    lda   #$80
+479: 81       rts   
+47A: 0D 27 21 brclr 6, $27, $49E
+47D: CE 9F 57 ldx   $9F57
+480: 5F       clrx  
+481: A1 C0    cmpa  #$C0
+483: 27 07    beq   $48C
+485: 5C       incx  
+486: C1 10 26 cmpa  $1026
+489: F7       sta   ,x
+48A: 35       fcb   $35
+48B: D6 E7 E2 lda   $E7E2,x
+48E: EC 61    jmp   $61,x
+490: 58       aslx  
+491: 49       rola  
+492: 58       aslx  
+493: 49       rola  
+494: 58       aslx  
+495: 49       rola  
+496: 58       aslx  
+497: 49       rola  
+498: EB E0    adda  $E0,x
+49A: ED E4    jsr   $E4,x
+49C: 20 D9    bra   $477
+49E: 35       fcb   $35
+49F: D6 8E 8F lda   $8E8F,x
+4A2: D3 10 8E cpx   $108E,x
+4A5: 9F       txa   
+4A6: 86       fcb   $86
+4A7: C6 0E BD lda   $0EBD
+4AA: 9D       nop   
+4AB: A3 A6    cpx   #$A6
+4AD: A0 BD    suba  #$BD
+4AF: 89       fcb   $89
+4B0: 3E       fcb   $3E
+4B1: 5A       decx  
+4B2: 26 F5    bne   $4A9
+4B4: 39 8D    rol   $8D
+4B6: E9 7E    adca  $7E,x
+4B8: 9D       nop   
+4B9: 93       fcb   $93
+4BA: 0D 0A 53 brclr 6, $0A, $510
+4BD: 54       lsrx  
+4BE: 41       fcb   $41
+4BF: 52       fcb   $52
+4C0: 54       lsrx  
+4C1: 20 00    bra   $4C3
+4C3: 0D 0A 45 brclr 6, $0A, $50B
+4C6: 4E       fcb   $4E
+4C7: 44       lsra  
+4C8: 20 20    bra   $4EA
+4CA: 20 00    bra   $4CC
+4CC: 0D 0A 4D brclr 6, $0A, $51C
+4CF: 41       fcb   $41
+4D0: 53       comx  
+4D1: 4B       fcb   $4B
+4D2: 20 20    bra   $4F4
+4D4: 00 8E 8C brset 0, $8E, $463
+4D7: BA BD    ora   $BD
+4D9: 9D       nop   
+4DA: A3 10    cpx   #$10
+4DC: 8E       fcb   $8E
+4DD: 9F       txa   
+4DE: AC       fcb   $AC
+4DF: 8D       fcb   $8D
+4E0: 28 BD    bhcc  $49F
+4E2: 9D       nop   
+4E3: A3 10    cpx   #$10
+4E5: 8E       fcb   $8E
+4E6: 9F       txa   
+4E7: AE 8D    ldx   #$8D
+4E9: 1F BD    bclr  7, $BD
+4EB: 9D       nop   
+4EC: A3 96    cpx   #$96
+4EE: B0 BD    suba  $BD
+4F0: 89       fcb   $89
+4F1: 3E       fcb   $3E
+4F2: 86       fcb   $86
+4F3: 20 BD    bra   $4B2
+4F5: 9D       nop   
+4F6: 87       fcb   $87
+4F7: BD 89    jsr   $89
+4F9: F1       cmpa  ,x
+4FA: B6 9B    lda   $9B
+4FC: 80       rti   
+4FD: 81       rts   
+4FE: 0D 27 05 brclr 6, $27, $506
+501: BD 8C    jsr   $8C
+503: 6E D7    jmp   $D7,x
+505: B0 7E    suba  $7E
+507: 9D       nop   
+508: 93       fcb   $93
+509: A6 A4    lda   #$A4
+50B: BD 89    jsr   $89
+50D: 3E       fcb   $3E
+50E: A6 21    lda   #$21
+510: BD 89    jsr   $89
+512: 3E       fcb   $3E
+513: 86       fcb   $86
+514: 20 BD    bra   $4D3
+516: 9D       nop   
+517: 87       fcb   $87
+518: BD 89    jsr   $89
+51A: F1       cmpa  ,x
+51B: B6 9B    lda   $9B
+51D: 80       rti   
+51E: 81       rts   
+51F: 0D 27 05 brclr 6, $27, $527
+522: BD 8C    jsr   $8C
+524: 6E ED    jmp   $ED,x
+526: A4 39    anda  #$39
+528: 96       fcb   $96
+529: B2 97    sbca  $97
+52B: 3F 04    clr   DDRA
+52D: BE 00    ldx   PORTA
+52F: BE 00    ldx   PORTA
+531: A6 FF    lda   #$FF
+533: B7 04    sta   DDRA
+535: A3 06    cpx   #$06
+537: 22 1A    bhi   $553
+539: 58       aslx  
+53A: DC 05 3D jmp   $053D,x
+53D: 20 15    bra   $554
+53F: 20 18    bra   $559
+541: 20 1D    bra   $560
+543: 20 22    bra   $567
+545: 20 27    bra   $56E
+547: 20 2C    bra   $575
+549: B6 10    lda   $10
+54B: 48       asla  
+54C: CB 00 10 adda  $0010
+54F: A9 0B    adca  #$0B
+551: B7 10    sta   $10
+553: 80       rti   
+554: 3F 11    clr   $11
+556: 3F 10    clr   $10
+558: 80       rti   
+559: B6 01    lda   PORTB
+55B: AA 60    ora   #$60
+55D: B7 01    sta   PORTB
+55F: 80       rti   
+560: B6 01    lda   PORTB
+562: A4 9F    anda  #$9F
+564: B7 01    sta   PORTB
+566: 80       rti   
+567: B6 01    lda   PORTB
+569: AA 80    ora   #$80
+56B: B7 01    sta   PORTB
+56D: 80       rti   
+56E: B6 01    lda   PORTB
+570: A4 7F    anda  #$7F
+572: B7 01    sta   PORTB
+574: 80       rti   
+575: 3C 11    inc   $11
+577: 80       rti   
+578: 83       swi   
+579: 00 80 25 brset 0, $80, $5A1
+57C: 1C 10    bset  6, $10
+57E: 83       swi   
+57F: FF       stx   ,x
+580: 7F       clr   ,x
+581: 22 16    bhi   $599
+583: 8E       fcb   $8E
+584: 8D       fcb   $8D
+585: 8B       fcb   $8B
+586: BD 9D    jsr   $9D
+588: A3 20    cpx   #$20
+58A: 13 20    bclr  1, $20
+58C: 4F       clra  
+58D: 55       fcb   $55
+58E: 54       lsrx  
+58F: 20 4F    bra   $5E0
+591: 46       rora  
+592: 20 52    bra   $5E6
+594: 41       fcb   $41
+595: 4E       fcb   $4E
+596: 47       asra  
+597: 45       fcb   $45
+598: 00 1F 98 brset 0, $1F, $533
+59B: BD 89    jsr   $89
+59D: 3E       fcb   $3E
+59E: 7E       jmp   ,x
+59F: 89       fcb   $89
+5A0: 11 0D    bclr  0, $0D
+5A2: 0A 46 49 brset 5, $46, $5EE
+5A5: 4C       inca  
+5A6: 45       fcb   $45
+5A7: 20 4E    bra   $5F7
+5A9: 41       fcb   $41
+5AA: 4D       tsta  
+5AB: 45       fcb   $45
+5AC: 3A 20    dec   $20
+5AE: 00 07 54 brset 0, $07, $605
+5B1: 52       fcb   $52
+5B2: 41       fcb   $41
+5B3: 4E       fcb   $4E
+5B4: 53       comx  
+5B5: 4D       tsta  
+5B6: 49       rola  
+5B7: 54       lsrx  
+5B8: 20 45    bra   $5FF
+5BA: 52       fcb   $52
+5BB: 52       fcb   $52
+5BC: 4F       clra  
+5BD: 52       fcb   $52
+5BE: 0D 0A 00 brclr 6, $0A, $5C1
+5C1: 50       negx  
+5C2: 49       rola  
+5C3: 50       negx  
+5C4: 20 00    bra   $5C6
+5C6: 2E 4F    bil   $617
+5C8: 42       fcb   $42
+5C9: 4A       deca  
+5CA: 0D 00 04 brclr 6, PORTA, $5D1
+5CD: 00 8E 8D brset 0, $8E, $55D
+5D0: CC BD 8A jmp   $BD8A
+5D3: 2E 8E    bil   $563
+5D5: 8D       fcb   $8D
+5D6: A1 BD    cmpa  #$BD
+5D8: 9D       nop   
+5D9: A3 BD    cpx   #$BD
+5DB: 89       fcb   $89
+5DC: F1       cmpa  ,x
+5DD: 26 03    bne   $5E2
+5DF: 7E       jmp   ,x
+5E0: 9D       nop   
+5E1: 93       fcb   $93
+5E2: 8E       fcb   $8E
+5E3: 9F       txa   
+5E4: 39 BD    rol   $BD
+5E6: 9D       nop   
+5E7: A3 6F    cpx   #$6F
+5E9: 5F       clrx  
+5EA: 0F 94 BD brclr 7, $94, $5AA
+5ED: 8B       fcb   $8B
+5EE: A0 0C    suba  #$0C
+5F0: 94       fcb   $94
+5F1: BD 8B    jsr   $8B
+5F3: A0 8E    suba  #$8E
+5F5: 8D       fcb   $8D
+5F6: C1 BD 8A cmpa  $BD8A
+5F9: 2E 8E    bil   $589
+5FB: 9B       sei   
+5FC: 80       rti   
+5FD: BD 8A    jsr   $8A
+5FF: 2E 8E    bil   $58F
+601: 8D       fcb   $8D
+602: C6 BD 8A lda   $BD8A
+605: 2E 0F    bil   $616
+607: A8 BD    eora  #$BD
+609: 8A       fcb   $8A
+60A: 45       fcb   $45
+60B: 81       rts   
+60C: 3E       fcb   $3E
+60D: 27 15    beq   $624
+60F: 81       rts   
+610: 53       comx  
+611: 26 F5    bne   $608
+613: BD 8A    jsr   $8A
+615: 45       fcb   $45
+616: 81       rts   
+617: 30 27    neg   $27
+619: EE 81    ldx   $81,x
+61B: 39 27    rol   $27
+61D: EA 81    ora   $81,x
+61F: 31       fcb   $31
+620: 27 15    beq   $637
+622: 20 E4    bra   $608
+624: 8E       fcb   $8E
+625: 8D       fcb   $8D
+626: CC BD 8A jmp   $BD8A
+629: 2E 96    bil   $5C1
+62B: A8 26    eora  #$26
+62D: 06 8E 8D brset 3, $8E, $5BD
+630: AF       fcb   $AF
+631: BD 9D    jsr   $9D
+633: A3 7E    cpx   #$7E
+635: 9D       nop   
+636: 93       fcb   $93
+637: 97       tax   
+638: A8 0F    eora  #$0F
+63A: 99       sec   
+63B: 8D       fcb   $8D
+63C: 40       nega  
+63D: 80       rti   
+63E: 03 1F 89 brclr 1, $1F, $5CA
+641: 8D       fcb   $8D
+642: 3A 97    dec   $97
+644: B1 8D    cmpa  $8D
+646: 36 97    ror   $97
+648: B2 9E    sbca  $9E
+64A: B1 8D    cmpa  $8D
+64C: 30 8C    neg   $8C
+64E: 9C       rsp   
+64F: 00 25 05 brset 0, $25, $657
+652: 8C       fcb   $8C
+653: A0 00    suba  #$00
+655: 25 21    bcs   $678
+657: 9F       txa   
+658: B1 30    cmpa  $30
+65A: 01 BD 9E brclr 0, $BD, $5FB
+65D: 69 5A    rol   $5A,x
+65F: 26 EA    bne   $64B
+661: BD 8E    jsr   $8E
+663: 7D       tst   ,x
+664: 0C 99 27 brset 6, $99, $68E
+667: A0 8E    suba  #$8E
+669: 8F       fcb   $8F
+66A: B2 BD    sbca  $BD
+66C: 9D       nop   
+66D: A3 BD    cpx   #$BD
+66F: 8A       fcb   $8A
+670: 45       fcb   $45
+671: 81       rts   
+672: 3D 26    tst   $26
+674: F9       adca  ,x
+675: 7E       jmp   ,x
+676: 9D       nop   
+677: 93       fcb   $93
+678: 8E       fcb   $8E
+679: 9F       txa   
+67A: 44       lsra  
+67B: 20 EE    bra   $66B
+67D: 34 14    lsr   $14
+67F: 8D       fcb   $8D
+680: 12 48    bset  1, $48
+682: 48       asla  
+683: 48       asla  
+684: 48       asla  
+685: A7       fcb   $A7
+686: E2 8D    sbca  $8D,x
+688: 0A AB E0 brset 5, $AB, $66B
+68B: 1F 89    bclr  7, $89
+68D: DB 99 D7 adda  $99D7,x
+690: 99       sec   
+691: 35       fcb   $35
+692: 94       fcb   $94
+693: BD 8A    jsr   $8A
+695: 45       fcb   $45
+696: 8E       fcb   $8E
+697: 9F       txa   
+698: 57       asrx  
+699: 5F       clrx  
+69A: A1 80    cmpa  #$80
+69C: 27 07    beq   $6A5
+69E: C1 0F 27 cmpa  $0F27
+6A1: 03 5C 20 brclr 1, $5C, $6C4
+6A4: F5       bit   ,x
+6A5: 1F 98    bclr  7, $98
+6A7: 39 96    rol   $96
+6A9: 9D       nop   
+6AA: 27 0C    beq   $6B8
+6AC: BE FF    ldx   $FF
+6AE: FE       ldx   ,x
+6AF: 8C       fcb   $8C
+6B0: 9C       rsp   
+6B1: 00 26 06 brset 0, $26, $6BA
+6B4: 9E       fcb   $9E
+6B5: 84       fcb   $84
+6B6: 20 02    bra   $6BA
+6B8: 9E       fcb   $9E
+6B9: B1 9F    cmpa  $9F
+6BB: 86       fcb   $86
+6BC: 10 CE    bset  0, $CE
+6BE: 9F       txa   
+6BF: E2 10    sbca  $10,x
+6C1: DF 92 96 stx   $9296,x
+6C4: 88       fcb   $88
+6C5: 8A       fcb   $8A
+6C6: 50       negx  
+6C7: 97       tax   
+6C8: 88       fcb   $88
+6C9: 7E       jmp   ,x
+6CA: 9E       fcb   $9E
+6CB: A5 4F    bit   #$4F
+6CD: 8A       fcb   $8A
+6CE: 04 97 AB brset 2, $97, $67C
+6D1: 7E       jmp   ,x
+6D2: 9D       nop   
+6D3: 93       fcb   $93
+6D4: 86       fcb   $86
+6D5: 80       rti   
+6D6: 20 F5    bra   $6CD
+6D8: 4F       clra  
+6D9: 20 F4    bra   $6CF
+6DB: 86       fcb   $86
+6DC: FF       stx   ,x
+6DD: D6 9D 26 lda   $9D26,x
+6E0: 02 96 B2 brset 1, $96, $695
+6E3: 97       tax   
+6E4: 9A       cli   
+6E5: 0A 9C 20 brset 5, $9C, $708
+6E8: E8 8E    eora  $8E,x
+6EA: 8F       fcb   $8F
+6EB: 9C       rsp   
+6EC: BD 9D    jsr   $9D
+6EE: A3 8E    cpx   #$8E
+6F0: 9F       txa   
+6F1: 80       rti   
+6F2: 10 8E    bset  0, $8E
+6F4: 00 78 1F brset 0, $78, $716
+6F7: 13 5F    bclr  1, $5F
+6F9: 86       fcb   $86
+6FA: 01 A7 84 brclr 0, $A7, $681
+6FD: A1 84    cmpa  #$84
+6FF: 27 04    beq   $705
+701: 8D       fcb   $8D
+702: 61       fcb   $61
+703: 20 12    bra   $717
+705: 48       asla  
+706: 26 F3    bne   $6FB
+708: 86       fcb   $86
+709: FE       ldx   ,x
+70A: A7       fcb   $A7
+70B: 84       fcb   $84
+70C: A1 84    cmpa  #$84
+70E: 26 F1    bne   $701
+710: 1A 01    bset  5, PORTB
+712: 49       rola  
+713: 81       rts   
+714: FF       stx   ,x
+715: 26 F3    bne   $70A
+717: E7 80    sta   $80,x
+719: CB 01 C9 adda  $01C9
+71C: 00 96 F9 brset 0, $96, $718
+71F: 81       rts   
+720: 0D 10 27 brclr 6, $10, $74A
+723: 0E 8A 31 brset 7, $8A, $757
+726: 3F 26    clr   $26
+728: D0 1F 30 suba  $1F30,x
+72B: 43       coma  
+72C: 53       comx  
+72D: C3 00 01 cpx   PORTB
+730: 31       fcb   $31
+731: 8B       fcb   $8B
+732: 1F 31    bclr  7, $31
+734: 5F       clrx  
+735: E1 84    cmpa  $84,x
+737: 27 02    beq   $73B
+739: 8D       fcb   $8D
+73A: 29 6F    bhcs  $7AB
+73C: 80       rti   
+73D: CB 01 C9 adda  $01C9
+740: 00 96 F9 brset 0, $96, $73C
+743: 81       rts   
+744: 0D 10 27 brclr 6, $10, $76E
+747: 0E 66 31 brset 7, $66, $77B
+74A: 3F 26    clr   $26
+74C: E8 11    eora  $11,x
+74E: 83       swi   
+74F: A0 00    suba  #$00
+751: 27 09    beq   $75C
+753: 8E       fcb   $8E
+754: A0 00    suba  #$00
+756: 10 8E    bset  0, $8E
+758: 5F       clrx  
+759: FA       ora   ,x
+75A: 20 9A    bra   $6F6
+75C: 8E       fcb   $8E
+75D: 8F       fcb   $8F
+75E: 7F       clr   ,x
+75F: BD 9D    jsr   $9D
+761: A3 20    cpx   #$20
+763: 8B       fcb   $8B
+764: 34 16    lsr   $16
+766: 8E       fcb   $8E
+767: 8F       fcb   $8F
+768: 8C       fcb   $8C
+769: BD 9D    jsr   $9D
+76B: A3 EC    cpx   #$EC
+76D: 62       fcb   $62
+76E: BD 89    jsr   $89
+770: 3E       fcb   $3E
+771: 1E 89    bset  7, $89
+773: BD 89    jsr   $89
+775: 3E       fcb   $3E
+776: 8E       fcb   $8E
+777: 01 80 30 brclr 0, $80, $7AA
+77A: 1F 26    bclr  7, $26
+77C: FC       jmp   ,x
+77D: 35       fcb   $35
+77E: 96       fcb   $96
+77F: 0D 0A 54 brclr 6, $0A, $7D6
+782: 45       fcb   $45
+783: 53       comx  
+784: 00 AE 65 brset 0, $AE, $7EC
+787: D6 07 90 lda   $0790,x
+78A: E7 0E    sta   $0E,x
+78C: 5A       decx  
+78D: 26 F8    bne   $787
+78F: BC 19    jmp   $19
+791: 36 16    ror   $16
+793: 01 2F FE brclr 0, $2F, $794
+796: B6 00    lda   PORTA
+798: 17 01    bclr  3, PORTB
+79A: 81       rts   
+79B: B7 01    sta   PORTB
+79D: A6 3F    lda   #$3F
+79F: B7 05    sta   DDRB
+7A1: 19 01    bclr  4, PORTB
+7A3: AD ED    bsr   $792
+7A5: 5C       incx  
+7A6: 2A FB    bpl   $7A3
+7A8: AE FE    ldx   #$FE
+7AA: BF 0B    stx   PCR
+7AC: 3C 46    inc   $46
+7AE: 26 04    bne   $7B4
+7B0: 3C 45    inc   $45
+7B2: 27 1D    beq   $7D1
+7B4: AD DC    bsr   $792
+7B6: BE 45    ldx   $45
+7B8: A3 FF    cpx   #$FF
+7BA: 26 0A    bne   $7C6
+7BC: BE 46    ldx   $46
+7BE: A3 85    cpx   #$85
+7C0: 25 04    bcs   $7C6
+7C2: A3 F8    cpx   #$F8
+7C4: 25 E2    bcs   $7A8
+7C6: C7 F8 7F sta   $F87F
+7C9: 27 04    beq   $7CF
+7CB: 3F 0B    clr   PCR
+7CD: AD 1E    bsr   $7ED
+7CF: 20 D7    bra   $7A8
+7D1: 03 01 0D brclr 1, PORTB, $7E1
+7D4: 5F       clrx  
+7D5: E6 63    lda   $63,x
+7D7: E7 44    sta   $44,x
+7D9: 5C       incx  
+7DA: A3 08    cpx   #$08
+7DC: 26 F7    bne   $7D5
+7DE: 5F       clrx  
+7DF: 20 BA    bra   $79B
+7E1: 15 01    bclr  2, PORTB
+7E3: 20 FE    bra   $7E3
+7E5: C1 F8 7F cmpa  $F87F
+7E8: 26 FE    bne   $7E8
+7EA: BC 26    jmp   $26
+7EC: 15 5F    bclr  2, $5F
+7EE: AD A8    bsr   $798
+7F0: AD A6    bsr   $798
+7F2: 5A       decx  
+7F3: 26 F9    bne   $7EE
+7F5: 81       rts   
+7F6: 07 85 02 brclr 3, $85, $7FB
+7F9: 51       fcb   $51
+7FA: 05 2B 02 brclr 2, $2B, $7FF
+7FD: 51       fcb   $51
+7FE: 02 51 FF brset 1, $51, $800
