@@ -233,15 +233,9 @@ qix_vram vram (
     .clk            (clk_20m),
     .flip           (flip),
 
-    // Slither VRAM access mask.
-    // DISABLED 2026-08-23 — the mask logic is correct in isolation (16/16 checks
-    // in the Verilator harness: blend, captured address, back-to-back writes at
-    // the real 16-clk bus spacing, bank bit) but produces garbage video for
-    // Slither on HW. The discrepancy is in the integration, not this module, and
-    // is not going to be found by reading. Re-enable with (is_slither) once the
-    // video path can actually be observed.
-    // .mask_en        (is_slither),
-    .mask_en        (1'b0),
+    // Slither VRAM access mask. Set (1'b0) here to disable it and fall back to
+    // whole-byte writes for every game.
+    .mask_en        (is_slither),
     .vram_mask      (vram_mask),
 
     // CPU direct port ($0000-$7FFF)

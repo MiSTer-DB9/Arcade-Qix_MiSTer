@@ -83,31 +83,25 @@ wire        cpu_we_any    = we | latch_we;
 //   st1  drive captured addr (read)
 //   st2  q_a valid -> rmw_old
 //   st3  drive captured addr, wren=1, data = blend
-reg [15:0] rmw_addr = 16'd0;
-reg [7:0]  rmw_data = 8'd0;
-reg [7:0]  rmw_old  = 8'd0;
-reg [1:0]  rmw_st   = 2'd0;
+// No state machine and no address mux is needed: the RAM is ALREADY reading the
+// write address for the whole bus cycle before the write lands.
+//   latched port - latch_re holds cpu_latch_full on address_a all cycle
+//   direct  port - latch_re/latch_we are 0, so address_a = cpu_direct_full
+// So cpu_q holds the OLD byte well before cpu_wr pulses at E-fall (16 clk in).
+// One registered copy of it is all the blend needs, and the write happens at its
+// natural time.
+//
+// ⛔ rmw_old MUST stay a register. Blending straight from cpu_q is a comb path
+// out of the RAM back into its own write port; Quartus stops inferring M10K and
+// the framebuffer becomes coloured jagged lines on EVERY game (HW 2026-08-23).
+// See [[BRAM read mux in data path defeats inference]].
+reg [7:0] rmw_old = 8'd0;
+always @(posedge clk) rmw_old <= cpu_q;
 
-always @(posedge clk) begin
-    case (rmw_st)
-        2'd0: if (mask_en & cpu_we_any) begin
-                  rmw_addr <= cpu_addr_mux;
-                  rmw_data <= cpu_din_mux;
-                  rmw_st   <= 2'd1;
-              end
-        2'd1: rmw_st <= 2'd2;
-        2'd2: begin rmw_old <= cpu_q; rmw_st <= 2'd3; end
-        2'd3: rmw_st <= 2'd0;
-    endcase
-end
-
-wire rmw_busy = (rmw_st != 2'd0);
-
-wire [15:0] cpu_addr_eff = rmw_busy       ? rmw_addr : cpu_addr_mux;
-wire [7:0]  cpu_din_eff  = (rmw_st == 2'd3)
-                           ? ((rmw_old & ~vram_mask) | (rmw_data & vram_mask))
-                           : cpu_din_mux;
-wire        cpu_we_eff   = mask_en ? (rmw_st == 2'd3) : cpu_we_any;
+wire [15:0] cpu_addr_eff = cpu_addr_mux;
+wire [7:0]  cpu_din_eff  = mask_en ? ((rmw_old & ~vram_mask) | (cpu_din_mux & vram_mask))
+                                   : cpu_din_mux;
+wire        cpu_we_eff   = cpu_we_any;
 
 // Display address with optional cocktail flip
 wire [15:0] disp_addr_eff = flip ? (display_addr ^ 16'hFFFF) : display_addr;
