@@ -11,7 +11,18 @@
     <region>World</region>
     <category>Shooter</category>
 
-    <buttons names="Fire 1,Fire 2,Test Advance,Not Used,Coin,Start 1P,Start 2P,Pause" default="A,B,X,Y,Select,Start,R,L"/>
+    <!--
+        Control panel per schematic (slither.pdf p.42, J16): four switches, all
+        active-low to GND on pin 1 —
+            J16-7  FIRE DOWN    J16-8  2 PLAYER
+            J16-9  FIRE UP      J16-10 1 PLAYER
+        These land on PIA0 port A ($9400): bit7=BUTTON1, bit6=START1,
+        bit5=START2, bit4=BUTTON2 (INPUT_PORTS_START(slither)).
+        Slot order below is fixed by the core (joystick_0[4..11]); only the
+        `default` letters choose which pad button drives each slot, so a
+        Fire Up/Down swap is an MRA edit and needs NO recompile.
+    -->
+    <buttons names="Fire Up,Fire Down,Test Advance,Not Used,Coin,1 Player,2 Player,Pause" default="A,B,X,Y,Select,Start,R,L"/>
 
     <!--
         Slither runs on Taito Qix hardware (2x 6809) but: NO third (6802) audio CPU,

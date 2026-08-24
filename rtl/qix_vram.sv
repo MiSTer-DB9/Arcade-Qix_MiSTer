@@ -10,6 +10,10 @@ module qix_vram (
     input             clk,
     input             flip,
 
+    // Slither VRAM access mask ($9401). mask_en=0 => plain whole-byte writes.
+    input             mask_en,
+    input  [7:0]      vram_mask,
+
     // CPU direct access
     input  [14:0]     addr,
     input             we,
@@ -45,6 +49,66 @@ wire [15:0] cpu_addr_mux  = (latch_we | latch_re) ? cpu_latch_full  : cpu_direct
 wire [7:0]  cpu_din_mux   = latch_we ? latch_din        : din;
 wire        cpu_we_any    = we | latch_we;
 
+// ---------------------------------------------------------------------------
+// Slither VRAM access mask — read-modify-write blend
+//   vram = (vram & ~mask) | (data & mask)
+//
+// cpu_q is the registered BRAM output for cpu_addr_mux, so the OLD byte is only
+// valid a couple of clk after the address settles. The CPU write window is ~16
+// clk_20m (6809E at 1.25 MHz), so delaying the write-enable by 2 clk is free and
+// keeps CPU timing untouched.
+//
+// The blend is idempotent — ((old&~m)|(d&m))&~m | (d&m) == (old&~m)|(d&m) — so
+// it stays correct even if the write strobe is a level and the RAM re-blends its
+// own output for the rest of the window.
+// ---------------------------------------------------------------------------
+// Two hard constraints, both learned the hard way on HW 2026-08-23:
+//
+//  1. ⛔ NEVER drive data_a combinationally from cpu_q. That is a comb path out
+//     of the RAM straight back into its own write port; Quartus stops treating
+//     this as a real M10K and the framebuffer becomes coloured jagged lines on
+//     EVERY game. See [[BRAM read mux in data path defeats inference]].
+//     The old byte must come from a register.
+//
+//  2. ⛔ NEVER just delay wren_a. cpu_wr is `cpu_E_fall & ~cpu_RnW` — a ONE-CLOCK
+//     pulse (Qix_Video.sv:96), not a held window. A clock later the 6809E has
+//     moved cpu_A to the next bus cycle and latch_we has dropped, so cpu_addr_mux
+//     changes source. A delayed write lands at the WRONG ADDRESS.
+//
+// So the sequencer captures address and data at the write pulse and owns the RAM
+// port for four clocks. The CPU's next access is >=16 clk away (1.25 MHz core vs
+// 20 MHz fabric), so hijacking the port is free.
+//
+//   st0  write pulse -> capture addr + data
+//   st1  drive captured addr (read)
+//   st2  q_a valid -> rmw_old
+//   st3  drive captured addr, wren=1, data = blend
+reg [15:0] rmw_addr = 16'd0;
+reg [7:0]  rmw_data = 8'd0;
+reg [7:0]  rmw_old  = 8'd0;
+reg [1:0]  rmw_st   = 2'd0;
+
+always @(posedge clk) begin
+    case (rmw_st)
+        2'd0: if (mask_en & cpu_we_any) begin
+                  rmw_addr <= cpu_addr_mux;
+                  rmw_data <= cpu_din_mux;
+                  rmw_st   <= 2'd1;
+              end
+        2'd1: rmw_st <= 2'd2;
+        2'd2: begin rmw_old <= cpu_q; rmw_st <= 2'd3; end
+        2'd3: rmw_st <= 2'd0;
+    endcase
+end
+
+wire rmw_busy = (rmw_st != 2'd0);
+
+wire [15:0] cpu_addr_eff = rmw_busy       ? rmw_addr : cpu_addr_mux;
+wire [7:0]  cpu_din_eff  = (rmw_st == 2'd3)
+                           ? ((rmw_old & ~vram_mask) | (rmw_data & vram_mask))
+                           : cpu_din_mux;
+wire        cpu_we_eff   = mask_en ? (rmw_st == 2'd3) : cpu_we_any;
+
 // Display address with optional cocktail flip
 wire [15:0] disp_addr_eff = flip ? (display_addr ^ 16'hFFFF) : display_addr;
 
@@ -58,9 +122,9 @@ wire [7:0] disp_q;
 
 dpram_dc #(.widthad_a(16)) vram_inst (
     .clock_a    (clk),
-    .address_a  (cpu_addr_mux),
-    .data_a     (cpu_din_mux),
-    .wren_a     (cpu_we_any),
+    .address_a  (cpu_addr_eff),
+    .data_a     (cpu_din_eff),
+    .wren_a     (cpu_we_eff),
     .q_a        (cpu_q),
 
     .clock_b    (clk),

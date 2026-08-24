@@ -343,8 +343,10 @@ always @(posedge clk_20m) begin
     if (trak_div == 16'd0) begin                          // ~305 counts/sec
         if      (~p1_joystick[3]) trak_x <= trak_x + 8'd1;   // right
         else if (~p1_joystick[2]) trak_x <= trak_x - 8'd1;   // left
-        if      (~p1_joystick[0]) trak_y <= trak_y - 8'd1;   // up   (Y reversed)
-        else if (~p1_joystick[1]) trak_y <= trak_y + 8'd1;   // down
+        // Y direction corrected on HW 2026-08-23 (was inverted; MAME's
+        // PORT_REVERSE on AN1/AN3 does not apply to how we drive the counter).
+        if      (~p1_joystick[0]) trak_y <= trak_y + 8'd1;   // up
+        else if (~p1_joystick[1]) trak_y <= trak_y - 8'd1;   // down
     end
 end
 
