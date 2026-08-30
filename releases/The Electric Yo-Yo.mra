@@ -11,7 +11,7 @@
     <region>World</region>
     <category>Maze</category>
 
-    <buttons names="Not Used,Not Used,Test Advance,Not Used,Coin,Start 1P,Start 2P,Pause"  default="A,B,X,Y,Select,Start,R,L"/>
+    <buttons names="-,-,Test Advance,-,Coin,Start 1P,Start 2P,Pause"  default="X,Select,Start,R,L"/>
 
     <!-- ROM index 1: game_id = 0x06 (ELECTRIC YO-YO) -->
     <rom index="1">

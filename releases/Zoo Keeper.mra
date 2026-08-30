@@ -8,16 +8,16 @@
 	<players>2</players>
 	<joystick>4-Way</joystick>
 	<mameversion>0.272</mameversion>
-        <rotation>horizontal</rotation>
-        <region>World</region>
+    <rotation>horizontal</rotation>
+    <region>World</region>
 	<category>Arcade</category>
 
-        <buttons names="Jump,Not Used,Test Advance,Not Used,Coin,Start 1P,Start 2P,Pause" default="A,B,X,Y,Select,Start,R,L"/>
+    <buttons names="Jump,-,Test Advance,-,Coin,Start 1P,Start 2P,Pause" default="A,X,Select,Start,R,L"/>
 
-        <!-- Game ID: 04 = Zoo Keeper (latched in Arcade-Qix.sv from ioctl_index 1) -->
-        <rom index="1">
-	    <part>04</part>
-        </rom>
+    <!-- Game ID: 04 = Zoo Keeper -->
+    <rom index="1">
+	     <part>04</part>
+	</rom>
 
 	<!--
 	========================================================================
