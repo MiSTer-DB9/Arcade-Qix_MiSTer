@@ -67,21 +67,23 @@ wire shared_debug_led_w;
 `include "build_id.v"
 localparam CONF_STR = {
 	"QIX;;",
-	"ODE,Aspect Ratio,Original,Full screen,[ARC1],[ARC2];",
-	"OC,Orientation,Vert,Horz;",
-	"OB,Flip Vertical,Off,On;",
-	"OFH,Scandoubler Fx,None,HQ2x,CRT 25%,CRT 50%,CRT 75%;",
+	"P1,Video Options;",
+	"P1ODE,Aspect Ratio,Original,Full screen,[ARC1],[ARC2];",
+	"P1OC,Orientation,Vert,Horz;",
+	"P1OB,HDMI Flip,Off,On;",
+	"P1OM,CRT Flip,Off,On;",
+	"P1OFH,Scandoubler Fx,None,HQ2x,CRT 25%,CRT 50%,CRT 75%;",
 	"-;",
 	"OR,Autosave NVRAM,Off,On;",
 	"-;",
-	"P1,Pause Options;",
-	"P1OP,Pause when OSD is open,On,Off;",
-	"P1OQ,Dim video after 10s,On,Off;",
+	"P2,Pause Options;",
+	"P2OP,Pause when OSD is open,On,Off;",
+	"P2OQ,Dim video after 10s,On,Off;",
 	"-;",
-	"P2,Screen Centering;",
-	"P2O36,H Center,0,-1,-2,-3,-4,-5,-6,-7,+7,+6,+5,+4,+3,+2,+1;",
-	"P2O7A,V Center,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,-12;",
-	"-;",	
+	"P3,Screen Centering;",
+	"P3O36,H Center,0,-1,-2,-3,-4,-5,-6,-7,+7,+6,+5,+4,+3,+2,+1;",
+	"P3O7A,V Center,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,-12;",
+	"-;",
 	"R0,Reset;",
 	"J1,Button 1,Button 2,Test Advance,Start 2P(alt),Coin,Start 1P,Start 2P,Pause;",
 	"jn,A,B,X,Y,Select,Start,R,L;",
@@ -314,7 +316,7 @@ wire [7:0]  r, g, b;
 wire horizontal = (game_id == 8'h03) | (game_id == 8'h04);  // Kram or Zoo Keeper
 wire rotate_ccw = 1;
 wire no_rotate  = (status[12] ^ horizontal) | direct_video;
-wire flip       = status[11] | ~no_rotate;
+wire flip       = status[11];
 
 // --- Output aspect ratio: follow the GAME orientation, not status[12] alone ---
 // The image is landscape exactly when screen_rotate passes through, i.e. the
@@ -353,6 +355,9 @@ Qix QIX_inst
 	.clk_20m(CLK_20M),
 
 	.game_id(game_id),
+	.crt_flip(status[22]),
+	.h_center(status[6:3]),
+	.v_center(status[10:7]),
 
 	.coin({~m_coin2, ~m_coin1}),
 	.start_buttons({~m_start2, ~m_start1}),

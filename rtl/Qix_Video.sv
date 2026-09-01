@@ -46,6 +46,10 @@ module Qix_Video (
     output [7:0]  video_b,
     output        crtc_vsync,
 
+    // Screen centering (OSD)
+    input  [3:0]  h_center,
+    input  [3:0]  v_center,
+
     // ROM loader (MiSTer ioctl — pre-gated by address range in Qix.sv)
     input  [24:0] ioctl_addr,
     input  [7:0]  ioctl_data,
@@ -196,6 +200,7 @@ end
 wire [13:0] crtc_ma;
 wire [4:0]  crtc_ra;
 wire        crtc_de;
+wire        vsync_cpu;
 wire [15:0] display_addr;
 wire [7:0]  display_data;
 wire [7:0]  pixel_index;
@@ -293,9 +298,13 @@ qix_display display (
     .reset       (reset),
     .flip        (flip),
 
+    .h_center    (h_center),
+    .v_center    (v_center),
+
     .ce_pix      (ce_pix),
     .hsync       (hsync),
     .vsync       (vsync),
+    .vsync_cpu   (vsync_cpu),
     .hblank      (hblank),
     .vblank      (vblank),
 
@@ -322,7 +331,7 @@ qix_display display (
     .crtc_do     (crtc_do_w)
 );
 
-assign crtc_vsync = vsync;
+assign crtc_vsync = vsync_cpu;
 
 // ---------------------------------------------------------------------------
 // NVRAM — 1KB BRAM ($8400-$87FF)

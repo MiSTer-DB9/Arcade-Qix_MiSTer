@@ -12,6 +12,10 @@ module qix_display (
     input         reset,
     input         flip,          // passed to qix_vram; unused inside this module
 
+    // Screen centering - shifts sync only, active video and totals unchanged
+    input  [3:0]  h_center,      // delay in pixels
+    input  [3:0]  v_center,      // delay in scan lines
+
     // Pixel clock enable (5 MHz = 20 MHz ÷ 4)
     output        ce_pix,
 
@@ -20,6 +24,9 @@ module qix_display (
     output        vsync,
     output        hblank,
     output        vblank,
+
+    // Undelayed CRTC VSYNC - CPU frame timing (sndPIA0 CB1)
+    output        vsync_cpu,
 
     // CRTC MA/RA/DE — wired directly to qix_vram for scanline latch
     output [13:0] crtc_ma,
@@ -74,6 +81,8 @@ always @(posedge clk_20m)
 // ---------------------------------------------------------------------------
 // mc6845 CRTC (VHDL entity, Quartus mixed-language synthesis)
 // ---------------------------------------------------------------------------
+wire hsync_raw, vsync_raw;
+
 mc6845 crtc (
     .CLOCK  (clk_20m),
     .CLKEN  (clken_625k),
@@ -85,8 +94,8 @@ mc6845 crtc (
     .DI     (crtc_di),
     .DO     (crtc_do),
     // Display outputs
-    .VSYNC  (vsync),
-    .HSYNC  (hsync),
+    .VSYNC  (vsync_raw),
+    .HSYNC  (hsync_raw),
     .VBLANK (vblank),
     .HBLANK (hblank),
     .DE     (crtc_de),
@@ -96,6 +105,33 @@ mc6845 crtc (
     .MA     (crtc_ma),
     .RA     (crtc_ra)
 );
+
+// ---------------------------------------------------------------------------
+// Screen centering
+//   Delays the sync pulses relative to the active window.  h_total / v_total
+//   are untouched, so the refresh rate does not move.  0 = raw CRTC sync.
+//   vsync_cpu always carries the undelayed pulse - the data CPU clocks frame
+//   timing off it and must not see the display adjustment.
+// ---------------------------------------------------------------------------
+wire [3:0] h_sel = h_center - 4'd1;
+wire [3:0] v_sel = v_center - 4'd1;
+
+reg [15:0] hs_dly;
+always @(posedge clk_20m)
+    if (ce_pix) hs_dly <= {hs_dly[14:0], hsync_raw};
+
+reg  hsync_raw_d;
+wire hs_fall = hsync_raw_d & ~hsync_raw;
+
+reg [15:0] vs_dly;
+always @(posedge clk_20m) begin
+    hsync_raw_d <= hsync_raw;
+    if (hs_fall) vs_dly <= {vs_dly[14:0], vsync_raw};
+end
+
+assign hsync     = (h_center == 4'd0) ? hsync_raw : hs_dly[h_sel];
+assign vsync     = (v_center == 4'd0) ? vsync_raw : vs_dly[v_sel];
+assign vsync_cpu = vsync_raw;
 
 // ---------------------------------------------------------------------------
 // Display address
