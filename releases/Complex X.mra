@@ -11,7 +11,7 @@
     <region>World</region>
     <category>Maze</category>
 
-    <buttons names="Not Used,Not Used,Test Advance,Start 2P,Coin,Start 1P,Jump,Pause" default="A,B,X,Y,Select,Start,R,L"/>
+    <buttons names="-,-,Test Advance,Start 2P,Coin,Start 1P,Jump,Pause" default="X,Y,Select,Start,R,L"/>
 
     <!--
         audiocpu: cx26 at $E000 (4KB), cx27 at $F000 (4KB) = 8KB total

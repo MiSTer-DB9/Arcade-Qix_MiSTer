@@ -63,6 +63,9 @@ module Qix (
     input         hs_write,
 
     input         pause,
+    input         crt_flip,       // OSD 180 degree flip, XORed into the cocktail flip
+    input  [3:0]  h_center,       // OSD screen centering
+    input  [3:0]  v_center,
     output reg    shared_debug_led
 );
 
@@ -544,7 +547,9 @@ Qix_Video video_board (
 
     .pause           (pause),
 //    .pause           (pause | cpu_sh_cs),
-    .flip            (flip),
+    .flip            (flip ^ crt_flip),
+    .h_center        (h_center),
+    .v_center        (v_center),
     .game_id         (game_id)
 );
 
