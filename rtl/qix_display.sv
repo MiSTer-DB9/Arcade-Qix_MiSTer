@@ -82,6 +82,7 @@ always @(posedge clk_20m)
 // mc6845 CRTC (VHDL entity, Quartus mixed-language synthesis)
 // ---------------------------------------------------------------------------
 wire hsync_raw, vsync_raw;
+wire hblank_raw, vblank_raw;   // H-CENTER-SIGNED-2026-09-23
 
 mc6845 crtc (
     .CLOCK  (clk_20m),
@@ -96,8 +97,8 @@ mc6845 crtc (
     // Display outputs
     .VSYNC  (vsync_raw),
     .HSYNC  (hsync_raw),
-    .VBLANK (vblank),
-    .HBLANK (hblank),
+    .VBLANK (vblank_raw),   // H-CENTER-SIGNED-2026-09-23: was (vblank), see Screen centering
+    .HBLANK (hblank_raw),   // was (hblank)
     .DE     (crtc_de),
     .CURSOR (),
     .LPSTB  (1'b0),
@@ -113,8 +114,21 @@ mc6845 crtc (
 //   vsync_cpu always carries the undelayed pulse - the data CPU clocks frame
 //   timing off it and must not see the display adjustment.
 // ---------------------------------------------------------------------------
-wire [3:0] h_sel = h_center - 4'd1;
-wire [3:0] v_sel = v_center - 4'd1;
+// H-CENTER-SIGNED-2026-09-23: the OSD codes H Center as 0, -1..-7 (1-7), +7..+1 (8-14), but every
+// code was used as a sync delay, so + moved the picture left too. A sync pulse cannot be advanced,
+// so + now delays the picture (DE-gated RGB and both blanks) instead. 0/15 are untouched. Original:
+// wire [3:0] h_sel = h_center - 4'd1;
+wire [2:0] h_left  = (h_center >= 4'd1 && h_center <= 4'd7)  ? h_center[2:0]         : 3'd0;
+wire [2:0] h_right = (h_center >= 4'd8 && h_center <= 4'd14) ? (3'd7 - h_center[2:0]) : 3'd0;   // 8..14 -> +7..+1
+wire [3:0] h_sel = {1'b0, h_left} - 4'd1;
+// V-CENTER-SIGNED-2026-09-23: V Center now uses the same 0, -1..-7 (1-7), +7..+1 (8-14) coding.
+// - moves the picture up (vsync delayed n lines, as before); + moves it down, which needs vsync
+// EARLIER than the CRTC's: regenerated from a line counter. The game's own CRTC setup leaves only
+// ~1 line between vsync and the first visible row, so on a consumer CRT the top can sit in overscan.
+// Original: wire [3:0] v_sel = v_center - 4'd1;
+wire [2:0] v_up   = (v_center >= 4'd1 && v_center <= 4'd7)  ? v_center[2:0]         : 3'd0;
+wire [2:0] v_down = (v_center >= 4'd8 && v_center <= 4'd14) ? (3'd7 - v_center[2:0]) : 3'd0;   // 8..14 -> +7..+1
+wire [3:0] v_sel  = {1'b0, v_up} - 4'd1;
 
 reg [15:0] hs_dly;
 always @(posedge clk_20m)
@@ -129,8 +143,32 @@ always @(posedge clk_20m) begin
     if (hs_fall) vs_dly <= {vs_dly[14:0], vsync_raw};
 end
 
-assign hsync     = (h_center == 4'd0) ? hsync_raw : hs_dly[h_sel];
-assign vsync     = (v_center == 4'd0) ? vsync_raw : vs_dly[v_sel];
+// assign hsync     = (h_center == 4'd0) ? hsync_raw : hs_dly[h_sel];   // H-CENTER-SIGNED original
+assign hsync     = (h_left == 3'd0) ? hsync_raw : hs_dly[h_sel];
+// Line counter from the raw vsync's leading edge; frame length and raw pulse width are measured, not assumed.
+reg        vsync_raw_d = 1'b0;
+reg  [9:0] line_cnt = 10'd0, frame_lines = 10'd0, vs_width = 10'd0, vs_width_cnt = 10'd0;
+wire       vs_rise = vsync_raw & ~vsync_raw_d;
+always @(posedge clk_20m) begin
+    vsync_raw_d <= vsync_raw;
+    if (vs_rise) begin
+        frame_lines  <= line_cnt;
+        line_cnt     <= 10'd0;
+        vs_width_cnt <= 10'd0;
+    end else if (hs_fall) begin
+        line_cnt <= line_cnt + 10'd1;
+        if (vsync_raw) vs_width_cnt <= vs_width_cnt + 10'd1;
+    end
+    if (vsync_raw_d & ~vsync_raw) vs_width <= vs_width_cnt;
+end
+// vsync advanced by v_down lines: high while ((line_cnt + n) mod frame_lines) < vs_width
+wire [10:0] vadv_pos  = {1'b0, line_cnt} + {8'd0, v_down};
+wire [10:0] vadv_wrap = (vadv_pos >= {1'b0, frame_lines}) ? vadv_pos - {1'b0, frame_lines} : vadv_pos;
+wire        vsync_adv = (vadv_wrap < {1'b0, vs_width});
+wire        vadv_ok   = (frame_lines > 10'd32) && (vs_width != 10'd0);   // measured at least one frame
+// assign vsync     = (v_center == 4'd0) ? vsync_raw : vs_dly[v_sel];   // V-CENTER-SIGNED original
+assign vsync     = (v_up != 3'd0)              ? vs_dly[v_sel] :
+                   (v_down != 3'd0 && vadv_ok) ? vsync_adv     : vsync_raw;
 assign vsync_cpu = vsync_raw;
 
 // ---------------------------------------------------------------------------
@@ -159,8 +197,24 @@ assign pixel_index = display_data;
 // assign video_g = 8'h00;
 // assign video_b = 8'h00;
 
-assign video_r = crtc_de ? rgb_r : 8'd0;
-assign video_g = crtc_de ? rgb_g : 8'd0;
-assign video_b = crtc_de ? rgb_b : 8'd0;
+// H-CENTER-SIGNED-2026-09-23: DE-gated RGB and blanks, delayed h_right pixels for a + setting.
+// Original (undelayed) below.
+// assign video_r = crtc_de ? rgb_r : 8'd0;
+// assign video_g = crtc_de ? rgb_g : 8'd0;
+// assign video_b = crtc_de ? rgb_b : 8'd0;
+wire [25:0] vid_now = {hblank_raw, vblank_raw, crtc_de ? rgb_r : 8'd0, crtc_de ? rgb_g : 8'd0, crtc_de ? rgb_b : 8'd0};
+reg  [25:0] vid_dly [0:6];
+integer vd;
+always @(posedge clk_20m)
+    if (ce_pix) begin
+        vid_dly[0] <= vid_now;
+        for (vd = 1; vd < 7; vd = vd + 1) vid_dly[vd] <= vid_dly[vd-1];
+    end
+wire [25:0] vid_out = (h_right == 3'd0) ? vid_now : vid_dly[h_right - 3'd1];
+assign hblank  = vid_out[25];
+assign vblank  = vid_out[24];
+assign video_r = vid_out[23:16];
+assign video_g = vid_out[15:8];
+assign video_b = vid_out[7:0];
 
 endmodule
