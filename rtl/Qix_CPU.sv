@@ -420,25 +420,63 @@ always @(posedge clk_20m) begin
     else        sn_acc <= sn_acc + SN_CLK_HZ;
 end
 
-// /WE strobe: 8 clk of setup after the PIA latches port B, then ~88 clk (4.4us)
-// low — several sn_cen edges, so the synchronous PSG cannot miss it.
-reg [6:0] sn1_wr_cnt = 7'd0;
-reg [6:0] sn2_wr_cnt = 7'd0;
-always @(posedge clk_20m) begin
-    if (reset) begin
-        sn1_wr_cnt <= 7'd0;
-        sn2_wr_cnt <= 7'd0;
-    end else begin
-        if (pia1_pb_wr)              sn1_wr_cnt <= 7'd96;
-        else if (sn1_wr_cnt != 7'd0) sn1_wr_cnt <= sn1_wr_cnt - 7'd1;
-        if (pia2_pb_wr)              sn2_wr_cnt <= 7'd96;
-        else if (sn2_wr_cnt != 7'd0) sn2_wr_cnt <= sn2_wr_cnt - 7'd1;
-    end
-end
-wire sn1_we_n = ~((sn1_wr_cnt != 7'd0) & (sn1_wr_cnt <= 7'd88));
-wire sn2_we_n = ~((sn2_wr_cnt != 7'd0) & (sn2_wr_cnt <= 7'd88));
+// SN-WE-HANDSHAKE-2026-09-23: the fixed 88-clk /WE window below was SHORTER than the PSG's
+// write-sampling tick (sn76489_latch_ctrl samples on the internal /16 enable = one per ~239 clk),
+// so ~63% of writes were dropped while READY still handshook (ready_o is forced '1' whenever
+// /CE is high) -> game runs, PSGs silent. Now /WE is held from the port-B write until the PSG
+// raises READY, like the real PIA CB2 write-strobe / CB1 handshake. Original below.
+// // /WE strobe: 8 clk of setup after the PIA latches port B, then ~88 clk (4.4us)
+// // low — several sn_cen edges, so the synchronous PSG cannot miss it.
+// reg [6:0] sn1_wr_cnt = 7'd0;
+// reg [6:0] sn2_wr_cnt = 7'd0;
+// always @(posedge clk_20m) begin
+//     if (reset) begin
+//         sn1_wr_cnt <= 7'd0;
+//         sn2_wr_cnt <= 7'd0;
+//     end else begin
+//         if (pia1_pb_wr)              sn1_wr_cnt <= 7'd96;
+//         else if (sn1_wr_cnt != 7'd0) sn1_wr_cnt <= sn1_wr_cnt - 7'd1;
+//         if (pia2_pb_wr)              sn2_wr_cnt <= 7'd96;
+//         else if (sn2_wr_cnt != 7'd0) sn2_wr_cnt <= sn2_wr_cnt - 7'd1;
+//     end
+// end
+// wire sn1_we_n = ~((sn1_wr_cnt != 7'd0) & (sn1_wr_cnt <= 7'd88));
+// wire sn2_we_n = ~((sn2_wr_cnt != 7'd0) & (sn2_wr_cnt <= 7'd88));
 
 wire sn1_ready, sn2_ready;
+
+// Per PSG: 8 clk data setup, then /WE low until READY rises (write taken), with a
+// ~2k-clk timeout so a PSG that never answers cannot wedge the CPU's CB1 poll.
+reg  [3:0]  sn1_setup = 4'd0,  sn2_setup = 4'd0;
+reg         sn1_wr_act = 1'b0, sn2_wr_act = 1'b0;
+reg  [10:0] sn1_tmo = 11'd0,   sn2_tmo = 11'd0;
+always @(posedge clk_20m) begin
+    if (reset) begin
+        sn1_setup <= 4'd0; sn1_wr_act <= 1'b0; sn1_tmo <= 11'd0;
+        sn2_setup <= 4'd0; sn2_wr_act <= 1'b0; sn2_tmo <= 11'd0;
+    end else begin
+        if (pia1_pb_wr) begin
+            sn1_setup <= 4'd8; sn1_wr_act <= 1'b0;
+        end else if (sn1_setup != 4'd0) begin
+            sn1_setup <= sn1_setup - 4'd1;
+            if (sn1_setup == 4'd1) begin sn1_wr_act <= 1'b1; sn1_tmo <= 11'd0; end
+        end else if (sn1_wr_act) begin
+            sn1_tmo <= sn1_tmo + 11'd1;
+            if (sn1_ready || &sn1_tmo) sn1_wr_act <= 1'b0;   // ready_o = ready_q while /CE low
+        end
+        if (pia2_pb_wr) begin
+            sn2_setup <= 4'd8; sn2_wr_act <= 1'b0;
+        end else if (sn2_setup != 4'd0) begin
+            sn2_setup <= sn2_setup - 4'd1;
+            if (sn2_setup == 4'd1) begin sn2_wr_act <= 1'b1; sn2_tmo <= 11'd0; end
+        end else if (sn2_wr_act) begin
+            sn2_tmo <= sn2_tmo + 11'd1;
+            if (sn2_ready || &sn2_tmo) sn2_wr_act <= 1'b0;
+        end
+    end
+end
+wire sn1_we_n = ~sn1_wr_act;
+wire sn2_we_n = ~sn2_wr_act;
 
 // /CE must be part of the bus access, NOT tied low. sn76489_latch_ctrl.vhd:134
 // drives `ready_o <= ready_q when ce_n_i = '0' else '1'`, and ready_q is cleared
