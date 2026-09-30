@@ -314,6 +314,9 @@ localparam CONF_STR = {
 	"P3O36,H Center,0,-1,-2,-3,-4,-5,-6,-7,+7,+6,+5,+4,+3,+2,+1;",
 	"P3O7A,V Center,0,-1,-2,-3,-4,-5,-6,-7,+7,+6,+5,+4,+3,+2,+1;",
 	"-;",
+	"H1P4,Game Options;",
+	"H1P4OIJ,Trackball Speed,Normal,Fast,Slow;",
+	"H1-;",
 	// [MiSTer-DB9 BEGIN] - DB9/SNAC8 support
 	// [MiSTer-DB9-Pro BEGIN] - Saturn first
 	"O[127:126],UserIO Joystick,Off,Saturn,DB9MD,DB15;",
@@ -346,6 +349,10 @@ wire  [7:0] ioctl_din;
 // [MiSTer-DB9 BEGIN] - DB9/SNAC8 support: rename USB joystick wires
 wire [15:0] joystick_0_USB, joystick_1_USB;
 // [MiSTer-DB9 END]
+wire [15:0] joystick_l_analog_0;
+wire [24:0] ps2_mouse;
+
+reg [7:0] game_id = 8'h00;
 wire [15:0] joy = joystick_0 | joystick_1;
 wire [15:0] joystick_r_analog_0;   // right analog stick: [15:8]=Y signed, [7:0]=X signed
 
@@ -377,7 +384,7 @@ hps_io #(.CONF_STR(CONF_STR)) hps_io
 
 	.buttons(buttons),
 	.status(status),
-	.status_menumask({direct_video}),
+	.status_menumask({game_id != 8'h05, direct_video}),
 
 	.ioctl_download(ioctl_download),
 	.ioctl_upload(ioctl_upload),
@@ -391,6 +398,8 @@ hps_io #(.CONF_STR(CONF_STR)) hps_io
 	.joystick_0(joystick_0_USB),
 	.joystick_1(joystick_1_USB),
 	.joystick_r_analog_0(joystick_r_analog_0),
+	.joystick_l_analog_0(joystick_l_analog_0),
+	.ps2_mouse(ps2_mouse),
 	.ps2_key(ps2_key),
 	// [MiSTer-DB9 BEGIN] - DB9/SNAC8 support: joy_raw
 	.joy_raw(joy_raw_payload),
@@ -442,12 +451,11 @@ assign CLK_VIDEO = CLK_40M;   // HDMI needs the 40 MHz reference
 wire reset = RESET | status[0] | buttons[1] | ioctl_download;
 
 // game_id: latched from ioctl index 1 (single byte written by MRA)
-// 00=Qix  01=ComplexX  02=SpaceDungeon  03=Kram  04=ZooKeep  05=Slither  06=ElecYoYo
-reg [7:0] game_id = 8'h00;
 always @(posedge CLK_20M) begin
     if (ioctl_wr && ioctl_index == 8'd1)
         game_id <= ioctl_dout;
 end
+// 00=Qix  01=ComplexX  02=SpaceDungeon  03=Kram  04=ZooKeep  05=Slither  06=ElecYoYo
 
 ///////////////////         Keyboard           //////////////////
 
@@ -610,6 +618,33 @@ arcade_video #(256,24) arcade_video
 	.fx(status[17:15])
 );
 
+// Slither trackball: mouse deltas as they arrive, left stick (proportional) or d-pad once a frame.
+// Port byte = counter scaled by Trackball Speed: Normal = MAME's 50%, Fast = 1:1, Slow = 1:4
+reg  [9:0] trak_x_c = 10'd0, trak_y_c = 10'd0;
+reg        mouse_tog = 1'b0, trak_vbl = 1'b0;
+wire signed [7:0] ana_x = joystick_l_analog_0[7:0];
+wire signed [7:0] ana_y = joystick_l_analog_0[15:8];
+wire [9:0] trak_dx = (ana_x > 8'sd12 || ana_x < -8'sd12) ? {{5{ana_x[7]}}, ana_x[7:3]} :
+                     m_right1 ? 10'd10 : m_left1 ? -10'd10 : 10'd0;
+wire [9:0] trak_dy = (ana_y > 8'sd12 || ana_y < -8'sd12) ? -{{5{ana_y[7]}}, ana_y[7:3]} :    // stick up is negative
+                     m_up1 ? 10'd10 : m_down1 ? -10'd10 : 10'd0;
+wire [9:0] mouse_dx = {{2{ps2_mouse[4]}}, ps2_mouse[15:8]};
+wire [9:0] mouse_dy = {{2{ps2_mouse[5]}}, ps2_mouse[23:16]};                                  // PS/2 Y is positive upward
+always @(posedge CLK_20M) begin
+	mouse_tog <= ps2_mouse[24];
+	trak_vbl  <= vblank;
+	if (mouse_tog != ps2_mouse[24]) begin
+		trak_x_c <= trak_x_c + mouse_dx;
+		trak_y_c <= trak_y_c + mouse_dy;
+	end
+	else if (vblank & ~trak_vbl) begin
+		trak_x_c <= trak_x_c + trak_dx;
+		trak_y_c <= trak_y_c + trak_dy;
+	end
+end
+wire [7:0] trak_x = status[19] ? trak_x_c[9:2] : status[18] ? trak_x_c[7:0] : trak_x_c[8:1];
+wire [7:0] trak_y = status[19] ? trak_y_c[9:2] : status[18] ? trak_y_c[7:0] : trak_y_c[8:1];
+
 //Instantiate Qix top-level platform module
 Qix QIX_inst
 (
@@ -626,6 +661,8 @@ Qix QIX_inst
 	.start_buttons({~m_start2, ~m_start1}),
 
 	.p1_joystick({~m_right1, ~m_left1, ~m_down1, ~m_up1}),
+	.trak_x(trak_x),
+	.trak_y(trak_y),
 	.p2_joystick(dual_stick_game
 	                 ? {~m_fire_right, ~m_fire_left, ~m_fire_down, ~m_fire_up}
 	                 : {~m_right2,     ~m_left2,     ~m_down2,     ~m_up2}),

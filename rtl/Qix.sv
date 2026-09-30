@@ -26,6 +26,8 @@ module Qix (
     input  [1:0]  start_buttons,
     input  [3:0]  p1_joystick,    // {R,L,D,U}
     input  [3:0]  p2_joystick,
+    input  [7:0]  trak_x,         // Slither trackball position counters: X on PIA2 port A, Y on PIA1 port A
+    input  [7:0]  trak_y,
     input         p1_btn1,        // Player 1 Draw Slow (active-low)
     input         p1_btn2,        // Player 1 Draw Fast (active-low)
     input         p2_btn1,        // Player 2 Draw Slow (active-low)
@@ -324,34 +326,6 @@ wire [7:0] coin_pia = {1'b1, 1'b1, coin[1], coin[0], service4, service3, service
 // Joystick nibble shorthand (active-low, L/D/R/U → PIA [3:0])
 wire [3:0] p1_joy_pia = {p1_joystick[2], p1_joystick[1], p1_joystick[3], p1_joystick[0]};
 wire [3:0] p2_joy_pia = {p2_joystick[2], p2_joystick[1], p2_joystick[3], p2_joystick[0]};
-
-// ---------------------------------------------------------------------------
-// Slither trackball stand-in
-//
-// Slither reads a real trackball as two free-running 8-bit position counters:
-//   PIA1 port A ($9800) = trak_r<1> = AN1 = Y axis (MAME applies PORT_REVERSE)
-//   PIA2 port A ($9C00) = trak_r<0> = AN0 = X axis
-// Taken from slither(machine_config&) — the INPUT_PORTS comments name the PIAs
-// the other way round and are stale.
-//
-// Until a real mouse/spinner is wired, the joystick drives the counters. The
-// game differences successive reads, so a steady count rate reads as steady
-// motion; holding a direction moves at a constant speed.
-// ---------------------------------------------------------------------------
-reg  [7:0]  trak_x   = 8'h00;
-reg  [7:0]  trak_y   = 8'h00;
-reg  [15:0] trak_div = 16'd0;
-always @(posedge clk_20m) begin
-    trak_div <= trak_div + 16'd1;
-    if (trak_div == 16'd0) begin                          // ~305 counts/sec
-        if      (~p1_joystick[3]) trak_x <= trak_x + 8'd1;   // right
-        else if (~p1_joystick[2]) trak_x <= trak_x - 8'd1;   // left
-        // Y direction corrected on HW 2026-08-23 (was inverted; MAME's
-        // PORT_REVERSE on AN1/AN3 does not apply to how we drive the counter).
-        if      (~p1_joystick[0]) trak_y <= trak_y + 8'd1;   // up
-        else if (~p1_joystick[1]) trak_y <= trak_y - 8'd1;   // down
-    end
-end
 
 // PIA1 port A: trackball Y on Slither, unused (pulled high) on every other game.
 wire [7:0] spare_pia = is_slither_top ? trak_y : 8'hFF;
