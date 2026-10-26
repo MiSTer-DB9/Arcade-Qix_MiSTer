@@ -31,38 +31,38 @@
 module nvram
 #(
 	parameter DUMPWIDTH=8,								// Address size of NVRAM for highscore data (default 8 = 256 bytes max)
-	parameter CONFIGINDEX=3,								// ioctl_index for config transfer
+	parameter CONFIGINDEX=3,							// ioctl_index for config transfer
 	parameter DUMPINDEX=4,								// ioctl_index for dump transfer
 	parameter PAUSEPAD=4								// Cycles to wait with paused CPU before and after NVRAM access
 )
 (
-	input										clk,
-	input										paused,			// Signal from core confirming CPU is paused
-	input										reset,
-	input										autosave,		// Auto-save enabled (active high)
+	input									clk,
+	input									paused,			// Signal from core confirming CPU is paused
+	input									reset,
+	input									autosave,		// Auto-save enabled (active high)
 
-	input										ioctl_upload,
+	input									ioctl_upload,
 	output reg								ioctl_upload_req,
-	input										ioctl_download,
-	input										ioctl_wr,
-	input		[24:0]						ioctl_addr,
+	input									ioctl_download,
+	input									ioctl_wr,
+	input		[24:0]							ioctl_addr,
 	input		[7:0]							ioctl_index,
-	output	[7:0]							ioctl_din,
+	output		[7:0]							ioctl_din,
 	input		[7:0]							ioctl_dout,
-	input										OSD_STATUS,
+	input									OSD_STATUS,
 
-	output	[DUMPWIDTH-1:0]			nvram_address,
+	output	[DUMPWIDTH-1:0]							nvram_address,
 	input		[7:0]							nvram_data_out,
 
-	output	reg							pause_cpu			// Pause core CPU to prepare for/relax after NVRAM access
+	output	reg								pause_cpu		// Pause core CPU to prepare for/relax after NVRAM access
 );
 
 // Hiscore data tracking
-wire				downloading_config;				// Is hiscore config currently being loaded?
+wire				downloading_config;			// Is hiscore config currently being loaded?
 reg				downloaded_config = 1'b0;		// Has hiscore config been loaded?
-wire				downloading_dump;					// Is hiscore data currently being loaded?
+wire				downloading_dump;			// Is hiscore data currently being loaded?
 reg				downloaded_dump = 1'b0;			// Has hiscore data been loaded?
-wire				uploading_dump;					// Is hiscore data currently being saved?
+wire				uploading_dump;				// Is hiscore data currently being saved?
 reg				extracting_dump = 1'b0;			// Is hiscore data currently extracted and checked for change?
 
 assign downloading_config = ioctl_download && (ioctl_index==CONFIGINDEX);
@@ -82,7 +82,7 @@ localparam SM_EXTRACTCOMPLETE = 3'd6;
 // State machine control
 reg	[(SM_STATEWIDTH-1):0]		state = SM_IDLE;			// Current state machine index
 reg	[(SM_STATEWIDTH-1):0]		next_state = SM_IDLE;		// Next state machine index to move to after wait timer expires
-reg	[31:0]							wait_timer;								// Wait timer for inital/read/write delays
+reg	[31:0]						wait_timer;					// Wait timer for inital/read/write delays
 
 // Last cycle signals
 reg										last_reset = 1'b0;		// Last cycle reset
